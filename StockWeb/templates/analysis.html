@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미래 기술 시장 예측</title>
+    <link rel="shortcut icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEfQm_t609GxLKYO_LjMGmccB75-eN9svmag&usqp=CAU">
+    <!-- Bootstrap4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- My CSS -->
+    <!-- {% load static %}
+    <link rel="stylesheet" href="{% static "common.css" %}">
+    <link rel="stylesheet" href="{% static "navbar.css" %}"> -->
+    <style>
+        /* common.css */
+        a, a:hover {
+            color: white;
+            text-decoration: none;
+        }
+        ul, ol {
+            padding: 0;
+        }
+        ul > li {
+            list-style: none;
+        }
+
+        /* navbar.css */
+        header {
+            background-color: var(--main-color);
+            background-color: #333F50;
+            margin-bottom: 3em;
+        }
+
+        /* Landscape 모드일 때 적용할 CSS */
+        @media (orientation: landscape) {
+            header {
+                margin-bottom: 4em;
+            }
+            header>h5 {
+                font-size: 24px;
+            }
+        }
+
+        /* footer.css */
+        footer {
+            margin-top: 3em;
+            padding-top: 1.7em;
+            color: #a7a7a7;
+            background-color: #eeeeee;
+        }
+
+        @media screen and (min-width: 989px) {
+            footer {
+                padding-top: 1.3em;
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+            }
+        }
+
+        /* analysis.css */
+        section#analysis li.title {
+            color: var(--main-color);
+            color: #333F50;
+        }
+        section#analysis li.keyword > span {
+            padding: 0 6px;
+            font-size: small;
+            color: gray;
+            background-color: var(--light-gray-color);
+            background-color: #E0E6EA;
+            border-radius: 3px;
+        }
+        section#analysis li.rank > div.rank-item-wrap {
+            width: 300px;
+            color: #b4b4b4;
+            background-color: var(--navy-color);
+            background-color: #0D2C3F;
+            border-radius: 6px;
+        }
+        section#analysis li.rank > div.rank-item-wrap > div {
+            width: 95%;
+            height: 92%;
+            border: 1px solid #a0a0a0;
+            border-radius: 8px;
+        }
+        section#analysis li.rank li {
+            margin-bottom: 5px;
+        }
+        section#analysis li.rank li:last-child {
+            margin-bottom: 0;
+        }
+        section#analysis li.rank li:hover {
+            color: orange;
+            font-weight: bold;
+            text-shadow: 1px 1px 6px wheat;
+        }
+        section#analysis li.wordcloud {
+            height: 16em;
+        }
+        section#analysis li.wordcloud > img {
+            object-fit: scale-down;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <header class="text-light">
+        <h5 class="d-flex justify-content-center p-2">
+            <a href="index.html" class="font-weight-bold">미래 기술 시장 예측</a>
+        </h5>
+    </header>
+    <section id="analysis" class="container px-1">
+        <div class="row mx-1">
+            <article class="col-lg-6 col-12">
+                <ul class="container py-2 pb-5 px-md-5 px-sm-4 bg-white rounded">
+                    <li class="title d-flex justify-content-center mt-3">
+                        <h4 class="font-weight-bold py-3">뉴스 키워드 분석</h4>
+                    </li>
+                    <li class="keyword">
+                        <span>경향신문</span>
+                        <span>국민일보</span>
+                        <span>동아일보</span>
+                        <span>한겨례</span>
+                        <span>매일일보</span>
+                        <span>조선일보</span>
+                    </li>
+                    <li class="rank d-flex justify-content-center py-4">
+                        <div class="rank-item-wrap d-flex justify-content-center align-items-center">
+                            <div class="d-flex justify-content-center p-4">
+                                <ol class="ml-3 mb-3">
+                                    <li>키워드</li>
+                                    <li>키워드</li>
+                                    <li>키워드</li>
+                                    <li>키워드</li>
+                                    <li>키워드</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="wordcloud d-flex justify-content-center">
+                        <img src="https://t1.daumcdn.net/cfile/tistory/99D89D3F5A4654AF13">
+                    </li>
+                </ul>
+            </article>
+            <article class="col-lg-6 col-12">
+                <ul class="container py-2 pb-5 px-md-5 px-sm-4 bg-white rounded">
+                    <li class="title d-flex justify-content-center mt-3">
+                        <h4 class="font-weight-bold py-3">뉴스 키워드 분석</h4>
+                    </li>
+                    <li class="keyword">
+                        <span>경향신문</span>
+                        <span>국민일보</span>
+                        <span>동아일보</span>
+                        <span>한겨례</span>
+                        <span>매일일보</span>
+                        <span>조선일보</span>
+                    </li>
+                    <li class="rank d-flex justify-content-center py-4">
+                        <div class="rank-item-wrap d-flex justify-content-center align-items-center">
+                            <div class="d-flex justify-content-center p-4">
+                                <ol class="ml-3 mb-3">
+                                    <li>키워드</li>
+                                    <li>키워드</li>
+                                    <li>키워드</li>
+                                    <li>키워드</li>
+                                    <li>키워드</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="wordcloud d-flex justify-content-center">
+                        <img src="https://t1.daumcdn.net/cfile/tistory/99D89D3F5A4654AF13">
+                    </li>
+                </ul>
+            </article>
+        </div>
+    </section>
+
+    <footer class="d-flex justify-content-center">
+        <div class="container">
+            <ul class="row">
+                <li class="col-lg-3 col-md-12">
+                    <h5 class="font-weight-bold">미래 기술 시장 예측</h5>
+                </li>
+                <li class="col" style="font-size: small;">
+                    AI 활용 소프트웨어 개발 및 응용 파이썬 프로젝트<br>
+                    팀명 : 오너&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;윤은경(팀장), 김영은, 김진섭, 노수빈, 하병노<br>
+                    &#169; 2021 We're like the owners
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Bootstrap4 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

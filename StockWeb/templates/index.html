@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미래 기술 시장 예측</title>
+    <link rel="shortcut icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEfQm_t609GxLKYO_LjMGmccB75-eN9svmag&usqp=CAU">
+    <!-- Bootstrap4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- My CSS -->
+    <!-- {% load static %}
+    <link rel="stylesheet" href="{% static "common.css" %}">
+    <link rel="stylesheet" href="{% static "navbar.css" %}"> -->
+    <style>
+        /* common.css */
+        a, a:hover {
+            color: white;
+            text-decoration: none;
+        }
+        ul, ol {
+            padding: 0;
+        }
+        ul > li {
+            list-style: none;
+        }
+
+        /* navbar.css */
+        header {
+            background-color: #333F50;
+            margin-bottom: 3em;
+        }
+
+        /* Landscape 모드일 때 적용할 CSS */
+        @media (orientation: landscape) {
+            header>h5 {
+                font-size: 24px;
+            }
+        }
+
+        /* footer.css */
+        footer {
+            margin-top: 3em;
+            padding-top: 1.7em;
+            color: #a7a7a7;
+            background-color: #eeeeee;
+        }
+
+        /* Landscape 모드일 때 적용할 CSS */
+        @media (orientation: landscape) {
+            footer {
+                padding-top: 1.3em;
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+            }
+        }
+
+        /* index.css */
+        section#search {
+            height: 60vh
+        }
+        section#search ul.list-group li:first-child {
+            width: 70vw;
+        }
+        section#search ul.list-group li:first-child > input {
+            width:100%;
+            border: none;
+        }
+        section#search ul.list-group li:first-child > input:focus {
+            border: none;
+            outline: none;
+        }
+
+        /* Landscape 모드일 때 적용할 CSS */
+        @media (orientation: landscape) {
+            section#search ul.list-group li:first-child {
+                width: 50vw
+            }
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <header class="text-light">
+        <h5 class="d-flex justify-content-center p-2">
+            <a href="index.html" class="font-weight-bold">미래 기술 시장 예측</a>
+        </h5>
+    </header>
+    <section id="search" class="d-flex justify-content-center align-items-center">
+        <ul class="list-group list-group-horizontal">
+            <li class="list-group-item">
+                <input>
+            </li>
+            <li class="list-group-item" onclick="search_btn()" style="cursor: pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </li>
+        </ul>
+    </section>
+
+    <footer class="fixed-bottom d-flex justify-content-center">
+        <div class="container">
+            <ul class="row">
+                <li class="col-lg-3 col-md-12">
+                    <h5 class="font-weight-bold">미래 기술 시장 예측</h5>
+                </li>
+                <li class="col" style="font-size: small;">
+                    AI 활용 소프트웨어 개발 및 응용 파이썬 프로젝트<br>
+                    팀명 : 오너&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;윤은경(팀장), 김영은, 김진섭, 노수빈, 하병노<br>
+                    &#169; 2021 We're like the owners
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Bootstrap4 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- My JS -->
+    <script>
+        function search_btn() {
+            location.href='analysis.html'
+        }
+    </script>
+</body>
+</html>
