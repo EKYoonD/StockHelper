@@ -5,80 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>미래 기술 시장 예측</title>
-    <link rel="shortcut icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEfQm_t609GxLKYO_LjMGmccB75-eN9svmag&usqp=CAU">
+    {% load static %}
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
     <!-- Bootstrap4 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- My CSS -->
-    <!-- {% load static %}
-    <link rel="stylesheet" href="{% static "common.css" %}">
-    <link rel="stylesheet" href="{% static "navbar.css" %}"> -->
-    <style>
-        /* common.css */
-        a, a:hover {
-            color: white;
-            text-decoration: none;
-        }
-        ul, ol {
-            padding: 0;
-        }
-        ul > li {
-            list-style: none;
-        }
-
-        /* navbar.css */
-        header {
-            background-color: #333F50;
-            margin-bottom: 3em;
-        }
-
-        /* Landscape 모드일 때 적용할 CSS */
-        @media (orientation: landscape) {
-            header>h5 {
-                font-size: 24px;
-            }
-        }
-
-        /* footer.css */
-        footer {
-            margin-top: 3em;
-            padding-top: 1.7em;
-            color: #a7a7a7;
-            background-color: #eeeeee;
-        }
-
-        /* Landscape 모드일 때 적용할 CSS */
-        @media (orientation: landscape) {
-            footer {
-                padding-top: 1.3em;
-                width: 100%;
-                position: absolute;
-                bottom: 0;
-            }
-        }
-
-        /* index.css */
-        section#search {
-            height: 60vh
-        }
-        section#search ul.list-group li:first-child {
-            width: 70vw;
-        }
-        section#search ul.list-group li:first-child > input {
-            width:100%;
-            border: none;
-        }
-        section#search ul.list-group li:first-child > input:focus {
-            border: none;
-            outline: none;
-        }
-
-        /* Landscape 모드일 때 적용할 CSS */
-        @media (orientation: landscape) {
-            section#search ul.list-group li:first-child {
-                width: 50vw
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body class="bg-light">
     <header class="text-light">
@@ -86,20 +21,63 @@
             <a href="/StockWeb" class="font-weight-bold">미래 기술 시장 예측</a>
         </h5>
     </header>
-    <section id="search" class="d-flex justify-content-center align-items-center">
-        <ul class="list-group list-group-horizontal">
-            <li class="list-group-item">
-                <input>
-            </li>
-            <li class="list-group-item" onclick="search_btn()" style="cursor: pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                </svg>
-            </li>
-        </ul>
-    </section>
 
-    <footer class="fixed-bottom d-flex justify-content-center">
+    <div>
+        <!-- 특허 사이드바 -->
+        <aside>
+            rmfwk
+        </aside>
+
+        <!-- 본문 -->
+        <section class="d-flex flex-column justify-content-center align-items-center" id="search">
+            <!-- 검색 입력 폼 -->
+            <form class="mb-3" id="search_frm" action="." method="POST">
+                {% csrf_token %}
+                <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item">
+                        <input class="w-100" name="search_input" id="search_input" placeholder="종목을 입력해주세요">
+                    </li>
+                    <li class="list-group-item" id="search_btn" style="cursor: pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </li>
+                </ul>
+            </form>
+            <!-- 검색 결과 -->
+            {{seachResult}}
+            <ul class="py-3 list-group list-group-horizontal border" id="search_result">
+                <li>
+                    <table class="w-100 table-layout-fixed">
+                        <colgroup>
+                            <col width="70%">
+                            <col>
+                        </colgroup>
+                        <tr>
+                            <td class="pl-3 ellipsis">네어버어어어엉어어어어어어어오어엉어어어어어어어오</td>
+                            <td class="text-center">000521</td>
+                        </tr>
+                        <tr>
+                            <td class="pl-3 ellipsis">네어버어어어엉어어어어어어어오어엉어어어어어어어오</td>
+                            <td class="text-center">000521</td>
+                        </tr>
+                    </table>
+                </li>
+                <li>
+                    <table class="table-layout-fixed">
+                        <tr>
+                            <td class="pr-3"><button type="button" class="btn btn-outline-secondary btn-sm">선택</button></td>
+                        </tr>
+                        <tr>
+                            <td class="pr-3"><button type="button" class="btn btn-outline-secondary btn-sm">선택</button></td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <footer class="d-flex justify-content-center">
         <div class="container">
             <ul class="row">
                 <li class="col-lg-3 col-md-12">
@@ -120,9 +98,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- My JS -->
     <script>
-        function search_btn() {
-            location.href='/StockWeb/analysis'
-        }
+       $(document).ready(function() {
+            $('#search_btn').click(function() {
+                $('#search_frm').submit();
+            });
+        });
     </script>
 </body>
 </html>

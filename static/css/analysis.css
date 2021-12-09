@@ -1,0 +1,42 @@
+section#analysis li.title {
+    color: var(--main-color);
+    color: #333F50;
+}
+section#analysis li.keyword > span {
+    padding: 0 6px;
+    font-size: small;
+    color: gray;
+    background-color: var(--light-gray-color);
+    background-color: #E0E6EA;
+    border-radius: 3px;
+}
+section#analysis li.rank > div.rank-item-wrap {
+    width: 300px;
+    color: #b4b4b4;
+    background-color: var(--navy-color);
+    background-color: #0D2C3F;
+    border-radius: 6px;
+}
+section#analysis li.rank > div.rank-item-wrap > div {
+    width: 95%;
+    height: 92%;
+    border: 1px solid #a0a0a0;
+    border-radius: 8px;
+}
+section#analysis li.rank li {
+    margin-bottom: 5px;
+}
+section#analysis li.rank li:last-child {
+    margin-bottom: 0;
+}
+section#analysis li.rank li:hover {
+    color: orange;
+    font-weight: bold;
+    text-shadow: 1px 1px 6px wheat;
+}
+section#analysis li.wordcloud {
+    height: 16em;
+}
+section#analysis li.wordcloud > img {
+    object-fit: scale-down;
+}

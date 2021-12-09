@@ -5,104 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>미래 기술 시장 예측</title>
-    <link rel="shortcut icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEfQm_t609GxLKYO_LjMGmccB75-eN9svmag&usqp=CAU">
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
     <!-- Bootstrap4 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- My CSS -->
-    <!-- {% load static %}
-    <link rel="stylesheet" href="{% static "common.css" %}">
-    <link rel="stylesheet" href="{% static "navbar.css" %}"> -->
-    <style>
-        /* common.css */
-        a, a:hover {
-            color: white;
-            text-decoration: none;
-        }
-        ul, ol {
-            padding: 0;
-        }
-        ul > li {
-            list-style: none;
-        }
-
-        /* navbar.css */
-        header {
-            background-color: var(--main-color);
-            background-color: #333F50;
-            margin-bottom: 3em;
-        }
-
-        /* Landscape 모드일 때 적용할 CSS */
-        @media (orientation: landscape) {
-            header {
-                margin-bottom: 4em;
-            }
-            header>h5 {
-                font-size: 24px;
-            }
-        }
-
-        /* footer.css */
-        footer {
-            margin-top: 3em;
-            padding-top: 1.7em;
-            color: #a7a7a7;
-            background-color: #eeeeee;
-        }
-
-        @media screen and (min-width: 989px) {
-            footer {
-                padding-top: 1.3em;
-                width: 100%;
-                position: absolute;
-                bottom: 0;
-            }
-        }
-
-        /* analysis.css */
-        section#analysis li.title {
-            color: var(--main-color);
-            color: #333F50;
-        }
-        section#analysis li.keyword > span {
-            padding: 0 6px;
-            font-size: small;
-            color: gray;
-            background-color: var(--light-gray-color);
-            background-color: #E0E6EA;
-            border-radius: 3px;
-        }
-        section#analysis li.rank > div.rank-item-wrap {
-            width: 300px;
-            color: #b4b4b4;
-            background-color: var(--navy-color);
-            background-color: #0D2C3F;
-            border-radius: 6px;
-        }
-        section#analysis li.rank > div.rank-item-wrap > div {
-            width: 95%;
-            height: 92%;
-            border: 1px solid #a0a0a0;
-            border-radius: 8px;
-        }
-        section#analysis li.rank li {
-            margin-bottom: 5px;
-        }
-        section#analysis li.rank li:last-child {
-            margin-bottom: 0;
-        }
-        section#analysis li.rank li:hover {
-            color: orange;
-            font-weight: bold;
-            text-shadow: 1px 1px 6px wheat;
-        }
-        section#analysis li.wordcloud {
-            height: 16em;
-        }
-        section#analysis li.wordcloud > img {
-            object-fit: scale-down;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/analysis.css' %}">
 </head>
 <body class="bg-light">
     <header class="text-light">

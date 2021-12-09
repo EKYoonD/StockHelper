@@ -1,0 +1,15 @@
+header {
+    background-color: var(--main-color);
+    background-color: #333F50;
+    margin-bottom: 3em;
+}
+
+/* Landscape 모드일 때 적용할 CSS */
+@media (orientation: landscape) {
+    header {
+        margin-bottom: 4em;
+    }
+    header>h5 {
+        font-size: 24px;
+    }
+}

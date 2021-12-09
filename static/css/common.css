@@ -1,0 +1,26 @@
+:root {
+    --main-color: #333F50;
+    --navy-color: #0D2C3F;
+    --light-gray-color: #E0E6EA;
+}
+
+a, a:hover {
+    color: white;
+    text-decoration: none;
+}
+ul, ol {
+    padding: 0;
+}
+ul > li {
+    list-style: none;
+}
+
+/* 말줄임표 크기 */
+table.table-layout-fixed {
+	table-layout: fixed;
+}
+.ellipsis {
+	white-space: nowrap; /* 한 줄로만 나타내게 함 */
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

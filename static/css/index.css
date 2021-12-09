@@ -1,0 +1,30 @@
+section#search {
+    height: 70vh;
+}
+section#search ul.list-group li:first-child {
+    width: 71vw;
+}
+section#search ul.list-group li:first-child > input,
+section#search ul.list-group li:first-child > input:focus {
+    border: none;
+    outline: none;
+}
+section#search ul.list-group#search_result {
+    max-height: 60vh;
+    overflow: auto;
+}
+section#search ul.list-group table tr {
+    height: 30px;
+}
+section#search ul.list-group table button {
+    padding-top: 1px;
+    height: 23px;
+    font-size: small;
+}
+
+/* Landscape 모드일 때 적용할 CSS */
+@media (orientation: landscape) {
+    section#search ul.list-group li:first-child {
+        width: 50vw
+    }
+}
