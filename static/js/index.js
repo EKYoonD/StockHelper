@@ -18,9 +18,9 @@ $(document).ready(function() {
                 if ( line.includes($('#search_input').val()) ) {
                     var elements = line.split(",");                    
                     table += "<tr>";
-                    table += "<td>" + elements[0] + "</td>";
                     table += "<td>" + elements[1] + "</td>";
-                    table += '<td><button type="button" name="add" value="' + elements[1] + '">선택</button></td>' ;
+                    table += "<td>" + elements[2] + "</td>";
+                    table += '<td><button type="button" name="add" value="' + elements[2] + '">선택</button></td>' ;
                     table += "</tr>";
                 }
             }
