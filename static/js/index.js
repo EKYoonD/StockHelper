@@ -20,17 +20,17 @@ $(document).ready(function() {
                     table += "<tr>";
                     table += "<td>" + elements[0] + "</td>";
                     table += "<td>" + elements[1] + "</td>";
-                    table += '<td><button type="button" name="add" value="' + elements[0] + '">선택</button></td>' ;
+                    table += '<td><button type="button" name="add" value="' + elements[1] + '">선택</button></td>' ;
                     table += "</tr>";
                 }
             }
             res.html(table);
 
             $("button[name='add']").on("click", function () {
-                stock_name = $(this).val();
-                location.href = '/StockWeb/analysis'
-                alert(stock_name)
-        
+                stock_code = $(this).val();
+                
+                location.href = "analysis?stock=" + stock_code;
+
             });
         })
 
