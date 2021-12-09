@@ -9,7 +9,7 @@ $(document).ready(function() {
         }
         // res 결과가 들어갈 html element
         var res = $("#res_table");
-        res.load("../static/data/stockList.txt", function (data) {
+        res.load("../static/data/stockList_CSV.csv", function (data) {
             var lines = data.split("\n");
             var table = "";
             
