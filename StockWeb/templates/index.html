@@ -31,24 +31,21 @@
         <!-- 본문 -->
         <section class="d-flex flex-column justify-content-center align-items-center" id="search">
             <!-- 검색 입력 폼 -->
-            <form class="mb-3" id="search_frm" action="." method="POST">
-                {% csrf_token %}
-                <ul class="list-group list-group-horizontal">
-                    <li class="list-group-item">
-                        <input class="w-100" name="search_input" id="search_input" placeholder="종목을 입력해주세요">
-                    </li>
-                    <li class="list-group-item" id="search_btn" style="cursor: pointer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                        </svg>
-                    </li>
-                </ul>
-            </form>
+            <ul class="list-group list-group-horizontal">
+                <li class="list-group-item">
+                    <input class="w-100" name="search_input" id="search_input" placeholder="종목을 입력해주세요">
+                </li>
+                <li class="list-group-item" id="search_btn" style="cursor: pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </li>
+            </ul>
             <!-- 검색 결과 -->
             {{seachResult}}
             <ul class="py-3 list-group list-group-horizontal border" id="search_result">
                 <li>
-                    <table class="w-100 table-layout-fixed">
+                    <table class="w-100 table-layout-fixed" id="res_table">
                         <colgroup>
                             <col width="70%">
                             <col>
@@ -97,12 +94,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- My JS -->
-    <script>
-       $(document).ready(function() {
-            $('#search_btn').click(function() {
-                $('#search_frm').submit();
-            });
-        });
-    </script>
+    <script src="{% static 'js/index.js' %}"></script>
+
 </body>
 </html>
