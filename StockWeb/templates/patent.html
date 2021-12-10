@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미래 기술 시장 예측</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+    <!-- Bootstrap4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static '/assets/bootsnipp/css/AccordlianMenu.min.css'%}">
+    <!-- My CSS -->
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/patent.css' %}">
+</head>
+<body class="bg-light">
+    <!-- 헤더 -->
+    <header class="text-light">
+        <h5 class="d-flex justify-content-center p-2">
+            <a href="/StockWeb" class="font-weight-bold">미래 기술 시장 예측</a>
+        </h5>
+    </header>
+
+    <!-- 사이드바 -->
+    <aside class="float-right">
+        <div id="jquery-accordion-menu" class="jquery-accordion-menu">
+            <div class="jquery-accordion-menu-header">특허기반 미래기술</div>
+            <ul id="patent_kw">
+                <li><a href="#">
+                    <span class="rank text-warning mr-1">1</span> 
+                    <span class="kw">키워드</span>
+                    <span class="cnt text-warning">0000</span>
+                </a></li>
+                <li><a href="#">
+                    <span class="rank text-warning mr-1">2</span> 
+                    <span class="kw">키워드</span>
+                    <span class="cnt text-warning">0000</span>
+                </a></li>
+                <li><a href="#">
+                    <span class="rank text-warning mr-1">3</span> 
+                    <span class="kw">키워드</span>
+                    <span class="cnt text-warning">0000</span>
+                </a></li>
+                <li><a href="#">
+                    <span class="rank text-warning mr-1">4</span> 
+                    <span class="kw">키워드</span>
+                    <span class="cnt text-warning">0000</span>
+                </a></li>
+                <li><a href="#">
+                    <span class="rank text-warning mr-1">5</span> 
+                    <span class="kw">키워드</span>
+                    <span class="cnt text-warning">0000</span>
+                </a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- 본문 -->
+    <section id="patent" class="d-flex flex-column justify-content-center align-items-cente px-3">
+        <h6 class="font-weight-bold mt-4 mb-2">'키워드'를 보유한 기업 리스트</h6>
+        <div class="card">
+            <div class="card-body">
+                <table class="w-100" id="res_table">
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-warning">부정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-warning">부정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-warning">부정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-warning">부정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-warning">부정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                    <tr>
+                        <td>기업명</td>
+                        <td>종목코드</td>
+                        <td><span class="badge badge-primary">긍정</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="fixed-bottom d-flex justify-content-center">
+        <div class="container">
+            <ul class="row">
+                <li class="col-lg-3 col-md-12">
+                    <h5 class="font-weight-bold">미래 기술 시장 예측</h5>
+                </li>
+                <li class="col" style="font-size: small;">
+                    AI 활용 소프트웨어 개발 및 응용 파이썬 프로젝트<br>
+                    팀명 : 오너&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;윤은경(팀장), 김영은, 김진섭, 노수빈, 하병노<br>
+                    &#169; 2021 We're like the owners
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Bootstrap4 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- My JS -->
+    <script src="{% static 'js/sidebar.js' %}"></script>
+</body>
+</html>

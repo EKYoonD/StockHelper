@@ -1,30 +1,67 @@
+/* 본문 전체 틀 */
 section#search {
-    height: 70vh;
+    height: 60vh;
 }
+/* 검색창 */
 section#search ul.list-group li:first-child {
-    width: 71vw;
+    width: 70vw;
 }
 section#search ul.list-group li:first-child > input,
 section#search ul.list-group li:first-child > input:focus {
     border: none;
     outline: none;
 }
+/* 검색 입력 경고 */
+.chkIdErrorNum:hover {
+    opacity:0.5; /* 80% 투명도 */
+}
+.chkIdErrorNum button:active {
+    border: none;
+    outline: none;
+}
+/* 검색 결과 개수 */
+#res_cnt {
+    font-size: small;
+}
+#res_cnt strong {
+    color: orange;
+}
+/* 검색 결과 */
 section#search ul.list-group#search_result {
     max-height: 60vh;
     overflow: auto;
 }
-section#search ul.list-group table tr {
+section#search table tr {
     height: 30px;
 }
-section#search ul.list-group table button {
+section#search table button {
     padding-top: 1px;
     height: 23px;
     font-size: small;
 }
+section#search table#res_table tr > td:first-child {  /* 회사명 */
+    max-width: 5em;
+}
+section#search table#res_table tr:nth-child(2) > td {
+    padding-top: 10px;
+}
+section#search table#res_table tr:last-child > td {
+    padding-bottom: 10px;
+}
 
 /* Landscape 모드일 때 적용할 CSS */
 @media (orientation: landscape) {
-    section#search ul.list-group li:first-child {
-        width: 50vw
+    section#search ul.list-group li:first-child {  /* 검색창 */
+        width: 35vw;
+    }
+    section#search table#res_table tr > td:first-child {  /* 회사명 */
+        max-width: 12em;
+    }
+}
+
+/* 뷰포트 너비가 851px 이상 '그리고' 991px 이하이면 실행 */
+@media all and (min-width:851px) and (max-width:991px) {
+    section#search ul.list-group li:first-child {  /* 검색창 */
+        width: 60vw;
     }
 }

@@ -1,0 +1,31 @@
+/* 본문 전체 틀 */
+section#patent {
+    height: 60vh;
+}
+section#patent div.card-body {
+    max-height: 60vh;
+    overflow: auto;
+}
+
+/* Landscape 모드일 때 적용할 CSS */
+@media (orientation: landscape) {
+    section#patent {
+        margin-left: 20vw;
+        height: 70vh;
+        /* border: 1px solid red; */
+    }
+    section#patent h6 {
+        margin-top: 0 !important;
+        margin-bottom: 1em !important;
+        font-size: 20px;
+    }
+    section#patent div.card-body {
+        max-height: 30vh;
+        overflow: auto;
+    }
+}
+
+/* 뷰포트 너비가 851px 이상 '그리고' 991px 이하이면 실행 */
+@media all and (min-width:851px) and (max-width:991px) {
+    
+}

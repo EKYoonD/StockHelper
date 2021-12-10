@@ -1,7 +1,14 @@
 header {
     background-color: var(--main-color);
     background-color: #333F50;
-    margin-bottom: 3em;
+    margin-bottom: 2em;
+}
+header a {
+    color: white;
+    font-size: 18px;
+}
+header a:hover {
+    color: white;
 }
 
 /* Landscape 모드일 때 적용할 CSS */
@@ -9,7 +16,7 @@ header {
     header {
         margin-bottom: 4em;
     }
-    header>h5 {
+    header a {
         font-size: 24px;
     }
 }

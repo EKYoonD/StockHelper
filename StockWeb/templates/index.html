@@ -9,72 +9,84 @@
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
     <!-- Bootstrap4 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static '/assets/bootsnipp/css/AccordlianMenu.min.css'%}">
     <!-- My CSS -->
     <link rel="stylesheet" href="{% static 'css/common.css' %}">
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static '/assets/bootsnipp/css/AlertGroup.css'%}">
 </head>
 <body class="bg-light">
+    <!-- 헤더 -->
     <header class="text-light">
         <h5 class="d-flex justify-content-center p-2">
             <a href="/StockWeb" class="font-weight-bold">미래 기술 시장 예측</a>
         </h5>
     </header>
 
-    <div>
-        <!-- 특허 사이드바 -->
-        <aside>
-            rmfwk
-        </aside>
-
-        <!-- 본문 -->
-        <section class="d-flex flex-column justify-content-center align-items-center" id="search">
-            <!-- 검색 입력 폼 -->
-            <ul class="list-group list-group-horizontal">
-                <li class="list-group-item">
-                    <input class="w-100" name="search_input" id="search_input" placeholder="종목을 입력해주세요">
-                </li>
-                <li class="list-group-item" id="search_btn" style="cursor: pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                    </svg>
-                </li>
+    <!-- 사이드바 -->
+    <aside class="float-right">
+        <div id="jquery-accordion-menu" class="jquery-accordion-menu">
+            <div class="jquery-accordion-menu-header">특허기반 미래기술</div>
+            <ul id="patent_kw">
+                <li><a href="/StockWeb/patent">
+                    <span class="rank text-warning mr-1">1</span> 
+                    <span class="kw">키워드</span>
+                    <span class="cnt text-warning">0000</span>
+                </a></li>
+                <li><a href="#">
+                    <span class="rank text-warning mr-1">2</span> 
+                    <span class="kw">키워드</span>
+                    <span class="cnt text-warning">0000</span>
+                </a></li>
+                <li><a href="#">
+                    <span class="rank text-warning mr-1">3</span> 
+                    <span class="kw">키워드</span>
+                    <span class="cnt text-warning">0000</span>
+                </a></li>
+                <li><a href="#">
+                    <span class="rank text-warning mr-1">4</span> 
+                    <span class="kw">키워드</span>
+                    <span class="cnt text-warning">0000</span>
+                </a></li>
+                <li><a href="#">
+                    <span class="rank text-warning mr-1">5</span> 
+                    <span class="kw">키워드</span>
+                    <span class="cnt text-warning">0000</span>
+                </a></li>
             </ul>
-            <!-- 검색 결과 -->
-            {{seachResult}}
-            <ul class="py-3 list-group list-group-horizontal border" id="search_result">
-                <li>
-                    <table class="w-100 table-layout-fixed" id="res_table">
-                        <colgroup>
-                            <col width="70%">
-                            <col>
-                        </colgroup>
-                        <tr>
-                            <td class="pl-3 ellipsis">네어버어어어엉어어어어어어어오어엉어어어어어어어오</td>
-                            <td class="text-center">000521</td>
-                        </tr>
-                        <tr>
-                            <td class="pl-3 ellipsis">네어버어어어엉어어어어어어어오어엉어어어어어어어오</td>
-                            <td class="text-center">000521</td>
-                        </tr>
-                    </table>
-                </li>
-                <li>
-                    <table class="table-layout-fixed">
-                        <tr>
-                            <td class="pr-3"><button type="button" class="btn btn-outline-secondary btn-sm">선택</button></td>
-                        </tr>
-                        <tr>
-                            <td class="pr-3"><button type="button" class="btn btn-outline-secondary btn-sm">선택</button></td>
-                        </tr>
-                    </table>
-                </li>
-            </ul>
-        </section>
-    </div>
+        </div>
+    </aside>
 
-    <footer class="d-flex justify-content-center">
+    <!-- 본문 -->
+    <section class="d-flex flex-column justify-content-center align-items-center" id="search">
+        <!-- 검색 입력 폼 -->
+        <ul class="mb-3 list-group list-group-horizontal">
+            <li class="list-group-item">
+                <input class="w-100" name="search_input" id="search_input" placeholder="종목 또는 종목코드를 입력해주세요">
+            </li>
+            <li class="list-group-item" id="search_btn" style="cursor: pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </li>
+        </ul>
+        <!-- 검색 입력 경고 -->
+        <ul class="mb-3 list-group" id="chkIdError_list">
+        </ul>
+        <!-- 검색 결과 -->
+        <ul class="py-1 list-group border" id="search_result">
+            <li>
+                <table class="w-100" id="res_table">
+                </table>
+            </li>
+        </ul>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="fixed-bottom d-flex justify-content-center">
         <div class="container">
             <ul class="row">
                 <li class="col-lg-3 col-md-12">
@@ -94,6 +106,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- My JS -->
+    <script src="{% static 'js/sidebar.js' %}"></script>
     <script src="{% static 'js/index.js' %}"></script>
 
 </body>

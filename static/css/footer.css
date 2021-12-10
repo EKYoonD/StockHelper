@@ -1,15 +1,18 @@
 footer {
     margin-top: 3em;
-    padding-top: 1.7em;
+    padding-top: 1em;
     color: #a7a7a7;
     background-color: #eeeeee;
+}
+footer h5 {
+    font-size: 15px;
 }
 
 @media screen and (min-width: 989px) {
     footer {
         padding-top: 1.3em;
-        width: 100%;
-        position: absolute;
-        bottom: 0;
+    }
+    footer h5 {
+        font-size: 18px;
     }
 }
