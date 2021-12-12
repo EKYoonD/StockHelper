@@ -24,10 +24,10 @@ function search_table() {
         var table = "";
         var res_cnt = 0;
         
-        for (i = 0; i < lines.length; i++) {
+        for (i = 1; i < lines.length; i++) {
             var line = lines[i];
-            if (line.includes($('#search_input').val())) {
-                var elements = line.split(",");
+            var elements = line.split(",");
+            if (String(elements[1]).includes($('#search_input').val())) {
                 table += "<tr>";
                 table += "<td class='pl-3 ellipsis'>" + elements[1] + "</td>";
                 table += "<td class='text-center'>" + elements[2] + "</td>";
@@ -40,7 +40,6 @@ function search_table() {
 
         // 검색 개수
         res.prepend('<tr class="border-bottom" id="res_cnt"><td class="pl-3 py-1" colspan="3">검색결과: <strong>' + res_cnt + '</strong>건</td></tr>')
-        // res.prepend('<tr class="border-bottom"><td class="pl-3 py-1" colspan="3">검색 결과 : <strong>' + row_cnt +'</strong>건</td></tr>')
         
         // table의 선택 버튼 눌러서 분석 페이지로 이동
         $("button[name='analysisKeyword_btn']").on("click", function () {
