@@ -1,0 +1,37 @@
+\D+}\s\s
+\[\D+\]
+Copyrights\D+
+<사진>
+사진\=
+캡처
+조선일보
+동아일보
+한겨레
+경향신문
+뉴시스
+연합뉴스
+[가-힣]{3}·[가-힣]{3} 기자 \w+@kyunghyang.com
+[가-힣]{3} 기자 \w+@kyunghyang.com
+www.khan.co.kr
+[가-힣]{3}·[가-힣]{3} 기자 \w+@khan.kr
+[가-힣]{3} 기자 \w+@khan.kr
+.[가-힣]{2}\/\w{3} 기자 \w+@hani.co.kr
+[가-힣]{3} [가-힣]{3} [가-힣]{3} 기자 \w+@hani.co.kr
+[가-힣]{3} 기자 \w+@hani.co.kr
+.[가-힣]{3} 동아닷컴 기자 \D+
+.[가-힣]{3} \w+@donga.com\D+
+.(\s)\w+@donga.com\D+ 
+\w+@donga.com\D+ 
+\w+@kyunghyang.com
+\w+@khan.kr
+\w+@hani.co.kr
+[가-힣]{3}·[가-힣]{3} 기자
+[가-힣]{3} 기자
+플랫팀
+twitter.com/\w+
+바로가기
+구독 신청하기
+구독하기
+구독신청하기
+무단전재
+재배포
