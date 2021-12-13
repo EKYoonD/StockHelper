@@ -1,11 +1,15 @@
 import numpy as np
 import pandas as pd
+from proto.primitives import ProtoType
 import requests
 from bs4 import BeautifulSoup
 import re
 import os
 import time
 from datetime import datetime, timedelta
+import FinanceDataReader as fdr
+import tensorflow as tf 
+# from .__init__ import kospi
 from google.cloud import language_v1
 
 #---------- 기사 정제하기----------------
@@ -30,7 +34,7 @@ def data_refine(data):
 # --------------- 감성점수 계산하기 ------------------------
 def sentiment_scoring(news_content):
     """Run a sentiment analysis request on text within a passed filename."""
-    client = language_v1.LanguageServiceClient.from_service_account_json("C:/Users/young/Desktop/StockHelper/flowing-bazaar-334005-93614458e39e.json")
+    client = language_v1.LanguageServiceClient.from_service_account_json("C:\DevRoot\dataset\StackHelper/flowing-bazaar-334005-93614458e39e.json")
 
     document = language_v1.Document(
         content=news_content, type_=language_v1.Document.Type.PLAIN_TEXT
@@ -45,12 +49,8 @@ def sentiment_scoring(news_content):
 
 #------------ 기사 크롤링 하기 -------------------
 # 키워드로 네이버 기사 url 크롤링
-def crawling_article(key_word):
+def crawling_article(key_word, ds, de):
     Url = 'https://search.naver.com/search.naver?'
-
-    # 오늘부터 20일 전까지의 기사를 크롤링
-    today = datetime.now()
-    startday = today - timedelta(days=20)
 
     params = {
         "where" : 'news',
@@ -60,8 +60,8 @@ def crawling_article(key_word):
         "photo": '0',
         "field": '0',
         "pd": '3',
-        "ds": str(startday.date()).replace('-','.'),  # 오늘부터 20일 전
-        "de" : str(today.date()).replace('-','.'),    # 오늘
+        "ds": ds,  # 오늘부터 20일 전
+        "de" : de,    # 오늘
         "cluster_rank": '10',
         "mynews" : '1',
         "office_type": '0',
@@ -155,9 +155,40 @@ def crawling_article(key_word):
 
     return pd.DataFrame(news)
 
+def make_dataset(df_news, kospi, stock_code, ds, de):
+    # 날짜, 감성점수 찾기
+
+    df_senti = df_news[['Date','Senti_Score']].groupby('Date').mean()
+
+
+    # 종목 정보 가져오기
+    stock_df = fdr.DataReader(stock_code, ds, de)
+    stock_df.rename(columns={'Change':'EachStock'}, inplace=True)
+    
+    # 정보 합치기
+    stock_dataset = pd.merge(stock_df, kospi, on='Date', how='inner')
+    stock_dataset = pd.merge(stock_dataset, df_senti, on='Date', how='left')
+    stock_dataset = stock_dataset.fillna(0)
+    return stock_dataset
+    
+# 코스피 20일치 가져오기
+def Kospi():
+    today = datetime.now()
+    startday = today - timedelta(days=30)
+    ds = str(startday.date())
+    de = str(today.date())
+
+    # KOSPI 정보 가져오기
+    kospi = fdr.DataReader('KS11', ds, de)[['Change']] 
+    kospi.rename(columns={'Change' : 'KOSPI'}, inplace=True)
+
+    kospi = kospi.tail(20)
+    return kospi, str(kospi.index[0].date()).replace('-','.'), str(kospi.index[-1].date()).replace('-','.')
 
 # 주식 종목 이름,코드 넘겨주기
 def predict_stock(stock_name, stock_code):
+    kospi, ds, de = Kospi()
+    print('코스피 완료', ds, de)
     # 검색 키워드 받아오기
     dict = {'NAVER':'네이버', 'POSCO':'포스코'}
     if stock_name in dict.keys():
@@ -165,19 +196,21 @@ def predict_stock(stock_name, stock_code):
 
     start = time.time()  # 시작 시간 저장
     # 검색 키워드로 네이버 기사 크롤링
-    df_news = crawling_article(stock_name)
+    df_news = crawling_article(stock_name, ds, de)
     print(df_news)
 
-
-    # 기사 감성점수 계산하기
     
-
-
     # 기사 데이터셋 구축하기 (KOSPI(init에서 가져오기), 감성점수, 기본 데이터 합치기)
-
-
+    data_set = make_dataset(df_news, kospi, stock_code, ds, de)
+    print(data_set)
     # 데이터셋 모델에 넣기
-
+    feature_cols = ['Senti_Score', 'Open', 'High', 'Low', 'Volume', 'EachStock', 'KOSPI']
+    model = tf.keras.models.load_model('dataset/Model/StockHelperModel.h5')
+    pred = model.predict(np.array(data_set[feature_cols])[np.newaxis, :])
+    print(pred)
+    # print(np.array(data_set[feature_cols])[np.newaxis, :].shape)
     print("time :", time.time() - start)  # 현재시각 - 시작시간 = 실행 시간
 
-predict_stock('POSCO', '000000')
+predict_stock('S-Oil', '010950')
+
+# print(kospi('2021-12-10', '2021-12-13'))
