@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from .__init__ import model
-from .services import predict_stock
+from .services import PredictStock
 
+predictStock = PredictStock()
 
 def find(request):
+
     if request.method == "POST":
         return render(request, 'index.html')
     else:
@@ -15,8 +16,12 @@ def search(request):
     stock_name = request.GET['name']
     print(stock_code, stock_name)
     
-    result, data_set = predict_stock(stock_name, stock_code)
+    result, data_set = predictStock.predict_stock(stock_name, stock_code)
+    print(result)
+    print(data_set)
     
+    print("성공")
+
 
     return render(request, 'analysis.html')
 
