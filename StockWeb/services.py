@@ -272,7 +272,7 @@ def predict_stock(stock_name, stock_code):
     result.loc[str(next_day)] = scaler_close.inverse_transform(pred)[0][0]
     print(result) # ★ 확인용
 
-    return result
+    return result, data_set
 
 # predict_stock('카카오', '000000')
 

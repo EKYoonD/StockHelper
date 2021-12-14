@@ -14,7 +14,8 @@ def search(request):
     stock_code = request.GET['stock']
     stock_name = request.GET['name']
     print(stock_code, stock_name)
-    print(predict_stock(stock_name, stock_code))
+    
+    result, data_set = predict_stock(stock_name, stock_code)
     
 
     return render(request, 'analysis.html')
