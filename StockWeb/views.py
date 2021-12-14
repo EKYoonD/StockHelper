@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .__init__ import model
+from .services import predict_stock
 
 
 def find(request):
@@ -11,8 +12,10 @@ def find(request):
 
 def search(request):
     stock_code = request.GET['stock']
-    print(stock_code)
-    print(model)
+    stock_name = request.GET['name']
+    print(stock_code, stock_name)
+    print(predict_stock(stock_name, stock_code))
+    
 
     return render(request, 'analysis.html')
 

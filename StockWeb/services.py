@@ -12,6 +12,7 @@ import tensorflow as tf
 # from .__init__ import kospi
 from google.cloud import language_v1
 from sklearn.preprocessing import MinMaxScaler
+from urllib import parse
 
 #---------- 기사 정제하기----------------
 # 텍스트 데이터 정제
@@ -35,7 +36,7 @@ def data_refine(data):
 # --------------- 감성점수 계산하기 ------------------------
 def sentiment_scoring(news_content):
     """Run a sentiment analysis request on text within a passed filename."""
-    client = language_v1.LanguageServiceClient.from_service_account_json("C:\DevRoot\dataset\StackHelper/flowing-bazaar-334005-93614458e39e.json")
+    client = language_v1.LanguageServiceClient.from_service_account_json("C:/DevRoot/stockhelper_data/flowing-bazaar-334005-93614458e39e.json")
 
     document = language_v1.Document(
         content=news_content, type_=language_v1.Document.Type.PLAIN_TEXT
@@ -202,8 +203,9 @@ def scaling(data_set):
 
 # 주식 종목 이름,코드 넘겨주기
 def predict_stock(stock_name, stock_code):
+    stock_name = parse.unquote(stock_name)
     kospi, ds_datetime, de_datetime = Kospi()
-
+    print(stock_name, stock_code)
     # 날짜 문자열로 변경
     ds = str(kospi.index[0].date()).replace('-','.')
     de = str(kospi.index[-1].date()).replace('-','.')
@@ -240,10 +242,10 @@ def predict_stock(stock_name, stock_code):
     if datetime.strptime(str(next_day), '%Y-%m-%d').weekday() == 5 or datetime.strptime(str(next_day), '%Y-%m-%d').weekday() == 6:
         next_day + next_day + timedelta(days=(7 - datetime.strptime(str(next_day), '%Y-%m-%d').weekday()))
     result.loc[str(next_day)] = scaler_close.inverse_transform(pred)[0][0]
-    print(result)
+    return result
 
     # return 
 
-predict_stock('S-Oil', '010950')
+#predict_stock('카카오', '035720')
 
 # print(kospi('2021-12-10', '2021-12-13'))

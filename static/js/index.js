@@ -31,7 +31,7 @@ function search_table() {
                 table += "<tr>";
                 table += "<td class='pl-3 ellipsis'>" + elements[1] + "</td>";
                 table += "<td class='text-center'>" + elements[2] + "</td>";
-                table += '<td class="pr-3 text-right"><button type="button" name="analysisKeyword_btn" class="btn btn-outline-secondary btn-sm" value="' + elements[2] + '">선택</button></td>';
+                table += '<td class="pr-3 text-right"><button type="button" name="analysisKeyword_btn" class="btn btn-outline-secondary btn-sm" value="' + elements  + '">선택</button></td>';
                 table += "</tr>";
                 res_cnt += 1;
             }
@@ -43,8 +43,10 @@ function search_table() {
         
         // table의 선택 버튼 눌러서 분석 페이지로 이동
         $("button[name='analysisKeyword_btn']").on("click", function () {
-            stock_code = $(this).val();
-            location.href = "analysis?stock=" + stock_code;
+            stock = $(this).val().split(',');
+            alert(stock)
+
+            location.href = "analysis?stock=" + stock[2] + "&name=" + stock[1];
         });
     });
 }
