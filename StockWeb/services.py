@@ -11,6 +11,7 @@ import FinanceDataReader as fdr
 import tensorflow as tf 
 # from .__init__ import kospi
 from google.cloud import language_v1
+from sklearn.preprocessing import MinMaxScaler
 
 #---------- 기사 정제하기----------------
 # 텍스트 데이터 정제
@@ -183,11 +184,30 @@ def Kospi():
     kospi.rename(columns={'Change' : 'KOSPI'}, inplace=True)
 
     kospi = kospi.tail(20)
-    return kospi, str(kospi.index[0].date()).replace('-','.'), str(kospi.index[-1].date()).replace('-','.')
+    return kospi, kospi.index[0].date(), kospi.index[-1].date()
+
+def scaling(data_set):
+    # 데이터 정규화
+    scaler = MinMaxScaler()  # 전체를 정규화
+    # Senti_Score   Open   High   Low   Close   Volume   EachStock   KOSPI
+    scale_cols = ['Open', 'High', 'Low', 'Close', 'Volume', 'EachStock', 'KOSPI', 'Senti_Score']
+    data_set_scaled = scaler.fit_transform(data_set[scale_cols])
+    data_set_scaled = pd.DataFrame(data_set_scaled)
+    data_set_scaled.columns = scale_cols
+    print(data_set_scaled)
+
+    scaler_close = MinMaxScaler()  # close만 정규화  ->  나중에 다시 되돌릴 때 필요
+    df_scaled_close = scaler_close.fit_transform(data_set[['Close']])
+    return data_set_scaled, scaler_close
 
 # 주식 종목 이름,코드 넘겨주기
 def predict_stock(stock_name, stock_code):
-    kospi, ds, de = Kospi()
+    kospi, ds_datetime, de_datetime = Kospi()
+
+    # 날짜 문자열로 변경
+    ds = str(kospi.index[0].date()).replace('-','.')
+    de = str(kospi.index[-1].date()).replace('-','.')
+
     print('코스피 완료', ds, de)
     # 검색 키워드 받아오기
     dict = {'NAVER':'네이버', 'POSCO':'포스코'}
@@ -203,13 +223,26 @@ def predict_stock(stock_name, stock_code):
     # 기사 데이터셋 구축하기 (KOSPI(init에서 가져오기), 감성점수, 기본 데이터 합치기)
     data_set = make_dataset(df_news, kospi, stock_code, ds, de)
     print(data_set)
+    
+    # 스케일링
+    data_set_scaled, scaler_close = scaling(data_set)
+
     # 데이터셋 모델에 넣기
     feature_cols = ['Senti_Score', 'Open', 'High', 'Low', 'Volume', 'EachStock', 'KOSPI']
     model = tf.keras.models.load_model('dataset/Model/StockHelperModel.h5')
-    pred = model.predict(np.array(data_set[feature_cols])[np.newaxis, :])
-    print(pred)
-    # print(np.array(data_set[feature_cols])[np.newaxis, :].shape)
+    pred = model.predict(np.array(data_set_scaled[feature_cols])[np.newaxis, :])
+    print(scaler_close.inverse_transform(pred))
     print("time :", time.time() - start)  # 현재시각 - 시작시간 = 실행 시간
+    
+    # 결과
+    result =  data_set['Close']
+    next_day = de_datetime + timedelta(days=1)
+    if datetime.strptime(str(next_day), '%Y-%m-%d').weekday() == 5 or datetime.strptime(str(next_day), '%Y-%m-%d').weekday() == 6:
+        next_day + next_day + timedelta(days=(7 - datetime.strptime(str(next_day), '%Y-%m-%d').weekday()))
+    result.loc[str(next_day)] = scaler_close.inverse_transform(pred)[0][0]
+    print(result)
+
+    # return 
 
 predict_stock('S-Oil', '010950')
 
