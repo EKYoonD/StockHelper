@@ -44,7 +44,6 @@ function search_table() {
         // table의 선택 버튼 눌러서 분석 페이지로 이동
         $("button[name='analysisKeyword_btn']").on("click", function () {
             stock = $(this).val().split(',');
-            alert(stock)
 
             location.href = "analysis?stock=" + stock[2] + "&name=" + stock[1];
         });

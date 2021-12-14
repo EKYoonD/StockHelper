@@ -36,7 +36,7 @@ def data_refine(data):
 # --------------- 감성점수 계산하기 ------------------------
 def sentiment_scoring(news_content):
     """Run a sentiment analysis request on text within a passed filename."""
-    client = language_v1.LanguageServiceClient.from_service_account_json("C:/DevRoot/stockhelper_data/flowing-bazaar-334005-93614458e39e.json")
+    client = language_v1.LanguageServiceClient.from_service_account_json("C:/DevRoot/dataset/flowing-bazaar-334005-93614458e39e.json")
 
     document = language_v1.Document(
         content=news_content, type_=language_v1.Document.Type.PLAIN_TEXT
@@ -103,6 +103,10 @@ def crawling_article(key_word, ds, de):
 
             for l in lists:
                 urls.append(l.select("div.news_wrap > div.news_area > div.news_info > div.info_group > a")[-1]['href'])
+            
+            print(code, '신문사', start, '번째 크롤링') # ★ 확인용
+    
+    print('url 크롤링 완료') # ★ 확인용
 
     # 크롤링한 날짜, 제목, 본문 저장
     news = []
@@ -147,6 +151,7 @@ def crawling_article(key_word, ds, de):
         # 감성점수 계산하기
         senti_score = sentiment_scoring(news_content)
 
+        # 결과물 추가
         dic = {
             'Date' : date,
             'title' : title,
@@ -154,14 +159,16 @@ def crawling_article(key_word, ds, de):
             'Senti_Score' : senti_score
         }
         news.append(dic)
+        
+        print(tot_sum, '번째 url 본문 크롤링 중') # ★ 확인용
+        tot_sum += 1    
 
     return pd.DataFrame(news)
 
+# --------------- 데이터셋 구축하기(kospi, 감성점수, 기본 정보 합치기) ------------------
 def make_dataset(df_news, kospi, stock_code, ds, de):
-    # 날짜, 감성점수 찾기
-
+    # 날짜별 감성점수 평균내기
     df_senti = df_news[['Date','Senti_Score']].groupby('Date').mean()
-
 
     # 종목 정보 가져오기
     stock_df = fdr.DataReader(stock_code, ds, de)
@@ -170,23 +177,11 @@ def make_dataset(df_news, kospi, stock_code, ds, de):
     # 정보 합치기
     stock_dataset = pd.merge(stock_df, kospi, on='Date', how='inner')
     stock_dataset = pd.merge(stock_dataset, df_senti, on='Date', how='left')
-    stock_dataset = stock_dataset.fillna(0)
+    stock_dataset = stock_dataset.fillna(0) # 감성점수가 없는 날은 0으로 세팅
+
     return stock_dataset
     
-# 코스피 20일치 가져오기
-def Kospi():
-    today = datetime.now()
-    startday = today - timedelta(days=30)
-    ds = str(startday.date())
-    de = str(today.date())
-
-    # KOSPI 정보 가져오기
-    kospi = fdr.DataReader('KS11', ds, de)[['Change']] 
-    kospi.rename(columns={'Change' : 'KOSPI'}, inplace=True)
-
-    kospi = kospi.tail(20)
-    return kospi, kospi.index[0].date(), kospi.index[-1].date()
-
+# --------------- 데이터셋 정규화 -------------------
 def scaling(data_set):
     # 데이터 정규화
     scaler = MinMaxScaler()  # 전체를 정규화
@@ -197,34 +192,67 @@ def scaling(data_set):
     data_set_scaled.columns = scale_cols
     print(data_set_scaled)
 
+    # 종가 정규화하는 scaler 만들기
     scaler_close = MinMaxScaler()  # close만 정규화  ->  나중에 다시 되돌릴 때 필요
     df_scaled_close = scaler_close.fit_transform(data_set[['Close']])
+
     return data_set_scaled, scaler_close
 
-# 주식 종목 이름,코드 넘겨주기
+# -------------- 주식 이름과 코드 매칭 체크 ---------------------
+def check(stock_name, stock_code):
+    stockList = pd.read_csv('static/data/stockList_CSV.csv', dtype='str')
+
+    return stockList[stockList['회사명'] == stock_name]['종목코드'].iloc[0] == stock_code
+
+# ------------ 코스피 20일치 가져오기 -----------------
+def Kospi():
+    today = datetime.now()
+    startday = today - timedelta(days=30)
+    ds = str(startday.date())
+    de = str(today.date())
+
+    # KOSPI 정보 가져오기
+    kospi = fdr.DataReader('KS11', ds, de)[['Change']] 
+    kospi.rename(columns={'Change' : 'KOSPI'}, inplace=True)
+
+    # 최근 날짜부터 20일치만 가져오기
+    kospi = kospi.tail(20)
+
+    # 코스피 값과 시작 날짜, 끝 날짜 리턴
+    return kospi, kospi.index[0].date(), kospi.index[-1].date()
+
+
+# ----------------- ★ 주식 종가 반환해주기 (메인 함수!!!) ★ -------------------
 def predict_stock(stock_name, stock_code):
+    # 주식 종목 이름 한글로 디코딩
     stock_name = parse.unquote(stock_name)
+
+    # 주식 종목 이름과 코드가 매칭이 되는지 체크
+    if check(stock_name, stock_code) == False:
+        return None   # 동일하지 않으면 None 이 반환 -> 나중에 views.py 에서 체크해서 alert 설정해주기
+
+    # 코스피, 시작날짜, 끝날짜 받아오기
     kospi, ds_datetime, de_datetime = Kospi()
     print(stock_name, stock_code)
     # 날짜 문자열로 변경
-    ds = str(kospi.index[0].date()).replace('-','.')
-    de = str(kospi.index[-1].date()).replace('-','.')
+    ds = str(ds_datetime).replace('-','.')
+    de = str(de_datetime).replace('-','.')
+    print('코스피 완료', ds, de) # ★ 확인용
 
-    print('코스피 완료', ds, de)
     # 검색 키워드 받아오기
     dict = {'NAVER':'네이버', 'POSCO':'포스코'}
     if stock_name in dict.keys():
         stock_name = dict[stock_name]
 
-    start = time.time()  # 시작 시간 저장
+    start = time.time()  # 시작 시간 저장   # ★ 확인용
+
     # 검색 키워드로 네이버 기사 크롤링
     df_news = crawling_article(stock_name, ds, de)
-    print(df_news)
-
+    print(df_news) # ★ 확인용
     
     # 기사 데이터셋 구축하기 (KOSPI(init에서 가져오기), 감성점수, 기본 데이터 합치기)
     data_set = make_dataset(df_news, kospi, stock_code, ds, de)
-    print(data_set)
+    print(data_set) # ★ 확인용
     
     # 스케일링
     data_set_scaled, scaler_close = scaling(data_set)
@@ -233,8 +261,8 @@ def predict_stock(stock_name, stock_code):
     feature_cols = ['Senti_Score', 'Open', 'High', 'Low', 'Volume', 'EachStock', 'KOSPI']
     model = tf.keras.models.load_model('dataset/Model/StockHelperModel.h5')
     pred = model.predict(np.array(data_set_scaled[feature_cols])[np.newaxis, :])
-    print(scaler_close.inverse_transform(pred))
-    print("time :", time.time() - start)  # 현재시각 - 시작시간 = 실행 시간
+    print(scaler_close.inverse_transform(pred)) # ★ 확인용
+    print("time :", time.time() - start)  # 현재시각 - 시작시간 = 실행 시간 # ★ 확인용
     
     # 결과
     result =  data_set['Close']
@@ -242,10 +270,10 @@ def predict_stock(stock_name, stock_code):
     if datetime.strptime(str(next_day), '%Y-%m-%d').weekday() == 5 or datetime.strptime(str(next_day), '%Y-%m-%d').weekday() == 6:
         next_day + next_day + timedelta(days=(7 - datetime.strptime(str(next_day), '%Y-%m-%d').weekday()))
     result.loc[str(next_day)] = scaler_close.inverse_transform(pred)[0][0]
+    print(result) # ★ 확인용
+
     return result
 
-    # return 
-
-#predict_stock('카카오', '035720')
+# predict_stock('카카오', '000000')
 
 # print(kospi('2021-12-10', '2021-12-13'))

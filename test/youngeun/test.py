@@ -1,6 +1,5 @@
 import pandas as pd
 
-with open('static/data/except_words.txt', 'r', encoding='utf-8') as f:
-    except_words = list(map(lambda line: line.replace('\n', ''), f.readlines()))
+stockList = pd.read_csv('static/data/stockList_CSV.csv', dtype='str')
 
-print(except_words)
+print(stockList[stockList['회사명'] == 'S-Oil']['종목코드'].iloc[0] == '010950')
