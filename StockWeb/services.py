@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from proto.primitives import ProtoType
+# from proto.primitives import ProtoType
 import requests
 from bs4 import BeautifulSoup
 import re

@@ -21,3 +21,6 @@ def search(request):
 
 def patent(request):
     return render(request, 'patent.html')
+
+def patentKeyword(request):
+    return render(request, 'patentKeyword.html')

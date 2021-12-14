@@ -6,6 +6,14 @@ aside {
 aside > div {
     position: fixed !important;
 }
+aside #more_btn {
+    color: #ccc;
+}
+aside #more_btn:hover {
+    color: var(--warning-color);
+    color: #FFC107;
+    text-shadow: 3px 3px #ccc;
+}
 aside .jquery-accordion-menu {
     max-width: 13px !important;
     background-color: #fff !important;

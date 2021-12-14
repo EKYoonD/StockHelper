@@ -8,6 +8,11 @@ function getToday(){
 }
 
 $(document).ready(function() {
+    // + 아이콘 클릭시 페이지 이동 
+    $('#more_btn').click(function(){
+        location.href = '/StockWeb/patentKeyword';
+    });
+
     // aside 태그에 특허 키워드 순위 보여줌
     var res = $('#patent_kw');   // res 결과가 들어갈 자리
     var today = '20211208'
@@ -16,7 +21,7 @@ $(document).ready(function() {
         var lines = data.split('\n');
         var list = '';
         
-        for (i = 1; i <= 5; i++) {
+        for (i = 1; i <= 10; i++) {
             var element = lines[i].split(',');
             list += '<li><a href="/StockWeb/patent">'
                         + '<span class="rank text-warning mr-1">' + i + '</span>'
