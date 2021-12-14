@@ -1,9 +1,4 @@
 $(document).ready(function() {
-    // + 아이콘 클릭시 페이지 이동 
-    $('#more_btn').click(function(){
-        location.href = '/StockWeb/patentKeyword';
-    });
-
     // aside 태그에 특허 키워드 순위 보여줌
     var res = $('#patent_kw');   // res 결과가 들어갈 자리
     res.load('../static/data/count_patent_desc.csv', function (data) {
@@ -19,5 +14,10 @@ $(document).ready(function() {
                         + '</a></li>'
         }
         res.html(list);   // res 결과를 html에 보여줌
+        
+        // + 아이콘 클릭시 페이지 이동 
+        $('#more_btn').click(function(){
+            location.href = '/StockWeb/patentKeyword';
+        });
     });
 });
