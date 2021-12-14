@@ -17,9 +17,9 @@ def search(request):
     print(stock_code, stock_name)
     
     result, data_set = predictStock.predict_stock(stock_name, stock_code)
-    print(result)
-    print(data_set)
-    
+    # print(result)
+    # print(data_set)
+
     print("성공")
 
 

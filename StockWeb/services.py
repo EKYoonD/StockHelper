@@ -14,7 +14,8 @@ from google.cloud import language_v1
 from sklearn.preprocessing import MinMaxScaler
 from urllib import parse
 
-from multiprocessing import Process
+from multiprocessing import Pool
+
 
 class PredictStock:
     def __init__(self):
@@ -45,8 +46,8 @@ class PredictStock:
         # 경향신문, 국민일보, 동아일보, 한겨례, 조선일보
         self.news_code = ['1032', '1005', '1020', '1028', '1023']
 
-        # 감성 분석 위한 키
-        self.client = language_v1.LanguageServiceClient.from_service_account_json("C:/DevRoot/stockhelper_data/flowing-bazaar-334005-93614458e39e.json")
+        # core 수
+        self.num_cores = 8
     
     #---------- 기사 정제하기----------------
     # 텍스트 데이터 정제
@@ -66,12 +67,12 @@ class PredictStock:
 
     # --------------- 감성점수 계산하기 ------------------------
     def sentiment_scoring(self, news_content):        
-
+        client = language_v1.LanguageServiceClient.from_service_account_json("C:/DevRoot/stockhelper_data/flowing-bazaar-334005-93614458e39e.json")
         document = language_v1.Document(
             content=news_content, type_=language_v1.Document.Type.PLAIN_TEXT
         )
         
-        annotations = self.client.analyze_sentiment(request={"document": document})
+        annotations = client.analyze_sentiment(request={"document": document})
 
         # Print the results
         score = annotations.document_sentiment.score
@@ -134,22 +135,35 @@ class PredictStock:
         
         print('url 크롤링 완료') # ★ 확인용
 
-        # 크롤링한 날짜, 제목, 본문 저장
-        news = []
+    
+        # 병렬 처리
+        # 본문 크롤링, 정제, 감성점수 -> 결과물
+        # res1의 마지막이 None이 됨(에러)
+        print("url size", len(urls))
+        pool = Pool(self.num_cores)
+        url_split = np.array_split(urls, self.num_cores)
+        res1 = pool.map(self.work_func, url_split)
+        print("before: ", len(res1))
+        res2 = sum(filter(None, res1), []) 
+        print("after: ", len(res2))
+        pool.close()
+        pool.join()
 
-        # 본문 크롤링, 정제, 감성점수 -> 결과물        
-        tot_sum = 0 
+        return pd.DataFrame(res2)
         
+    # 병렬처리 위한 함수
+    def work_func(self, urls):
+        news = []
+        cnt = 0
         for url in urls:
             raw = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
-
             dom = BeautifulSoup(raw.text, "html.parser")
 
             try:
                 title = dom.select_one('#articleTitle').text.strip()
                 date = dom.select_one('#main_content > div.article_header > div.article_info > div > span.t11').text.strip()[:10]
             except Exception:
-                continue
+                return
             
             # <script> <style> 제거 (전처리)
             for s in dom(['script', 'style', 'img']):
@@ -179,19 +193,18 @@ class PredictStock:
             # 감성점수 계산하기
             senti_score = self.sentiment_scoring(news_content)
 
-            # 결과물 추가
             dic = {
                 'Date' : date,
                 'title' : title,
                 'content' : news_content,
                 'Senti_Score' : senti_score
             }
-            news.append(dic)
-            
-            print(tot_sum, '번째 url 본문 크롤링 중') # ★ 확인용
-            tot_sum += 1    
 
-        return pd.DataFrame(news)
+            news.append(dic)
+            print('PID :', os.getpid(), '/ cnt : ', cnt)
+            cnt += 1
+        return news
+
 
     # --------------- 데이터셋 구축하기(kospi, 감성점수, 기본 정보 합치기) ------------------
     def make_dataset(self, df_news, kospi, stock_code, ds, de):
