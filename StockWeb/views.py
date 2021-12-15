@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .services import PredictStock
 
+
 predictStock = PredictStock()
 
 def find(request):
@@ -8,7 +9,6 @@ def find(request):
     if request.method == "POST":
         return render(request, 'index.html')
     else:
-        print("GET 입니다")
         return render(request, 'index.html')
 
 def search(request):
@@ -26,7 +26,8 @@ def search(request):
     return render(request, 'analysis.html')
 
 def patent(request):
-    return render(request, 'patent.html')
+    kw = request.GET['kw']
+    return render(request, 'patent.html', {'kw':kw})
 
 def patentKeyword(request):
     return render(request, 'patentKeyword.html')

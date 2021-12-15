@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="{% static 'css/patent.css' %}">
 </head>
 <body class="bg-light">
@@ -62,35 +63,11 @@
 
     <!-- 본문 -->
     <section id="patent" class="d-flex flex-column justify-content-center align-items-cente px-3">
-        <h6 class="font-weight-bold mt-4 mb-2">'키워드'를 보유한 기업 리스트</h6>
+        <h6 class="font-weight-bold mt-4 mb-2"><span class="text-warning">{{kw}}</span> 기술을 보유한 기업 리스트</h6>
         <div class="card">
             <div class="card-body">
                 <table class="w-100" id="res_table">
-                    <tr>
-                        <td>기업명</td>
-                        <td>종목코드</td>
-                        <td><span class="badge badge-danger">긍정</span></td>
-                    </tr>
-                    <tr>
-                        <td>기업명</td>
-                        <td>종목코드</td>
-                        <td><span class="badge badge-primary">부정</span></td>
-                    </tr>
-                    <tr>
-                        <td>기업명</td>
-                        <td>종목코드</td>
-                        <td><span class="badge badge-danger">긍정</span></td>
-                    </tr>
-                    <tr>
-                        <td>기업명</td>
-                        <td>종목코드</td>
-                        <td><span class="badge badge-danger">긍정</span></td>
-                    </tr>
-                    <tr>
-                        <td>기업명</td>
-                        <td>종목코드</td>
-                        <td><span class="badge badge-danger">긍정</span></td>
-                    </tr>
+                    <!-- patent.js 결과 -->
                 </table>
             </div>
         </div>
@@ -119,5 +96,6 @@
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
     <!-- My JS -->
     <script src="{% static 'js/sidebar.js' %}"></script>
+    <script src="{% static 'js/patent.js' %}"></script>
 </body>
 </html>

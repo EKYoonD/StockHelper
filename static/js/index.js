@@ -17,7 +17,7 @@ function search_table() {
     $('#search_result').css('display', 'block')  // 결과 표시칸 생성
     $('.chkIdErrorNum').css('display', 'none')  // 모든 경고창 삭제
     
-    // index 페이지에 검색 결과 보여줌
+    // index 페이지에 검색 결과 보여
     var res = $("#res_table");   // res 결과가 들어갈 html element
     res.load("../static/data/stockList_CSV.csv", function (data) {
         var lines = data.split("\n");
@@ -27,7 +27,7 @@ function search_table() {
         for (i = 1; i < lines.length; i++) {
             var line = lines[i];
             var elements = line.split(",");
-            if (String(elements[1]).includes($('#search_input').val())) {
+            if (String(elements[1]).toLowerCase().includes($('#search_input').val().toLowerCase())) {
                 table += "<tr>";
                 table += "<td class='pl-3 ellipsis'>" + elements[1] + "</td>";
                 table += "<td class='text-center'>" + elements[2] + "</td>";
@@ -44,7 +44,7 @@ function search_table() {
         // table의 선택 버튼 눌러서 분석 페이지로 이동
         $("button[name='analysisKeyword_btn']").on("click", function () {
             stock = $(this).val().split(',');
-            
+
             location.href = "analysis?stock=" + stock[2] + "&name=" + stock[1];
         });
     });

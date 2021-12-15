@@ -1,132 +1,68 @@
 /* 본문 전체 틀 */
 section#search {
-    height: 60vh;
+  height: 60vh;
 }
 /* 검색창 */
 section#search ul.list-group li:first-child {
-    width: 70vw;
+  width: 70vw;
 }
 section#search ul.list-group li:first-child > input,
 section#search ul.list-group li:first-child > input:focus {
-    border: none;
-    outline: none;
+  border: none;
+  outline: none;
 }
 /* 검색 입력 경고 */
 .chkIdErrorNum:hover {
-    opacity:0.5; /* 80% 투명도 */
+  opacity:0.5; /* 80% 투명도 */
 }
 .chkIdErrorNum button:active {
-    border: none;
-    outline: none;
+  border: none;
+  outline: none;
 }
 /* 검색 결과 개수 */
 #res_cnt {
-    font-size: small;
+  font-size: small;
 }
 #res_cnt strong {
-    color: orange;
+  color: orange;
 }
 /* 검색 결과 */
 section#search ul.list-group#search_result {
-    max-height: 60vh;
-    overflow: auto;
+  max-height: 60vh;
+  overflow: auto;
 }
-section#search table tr {
-    height: 30px;
+section table tr {
+  height: 30px;
 }
-section#search table button {
-    padding-top: 1px;
-    height: 23px;
-    font-size: small;
+section table button {
+  padding-top: 1px !important;
+  height: 23px;
+  font-size: small !important;
 }
-section#search table#res_table tr > td:first-child {  /* 회사명 */
-    max-width: 5em;
+section table#res_table tr > td:first-child {  /* 회사명 */
+  max-width: 5em;
 }
-section#search table#res_table tr:nth-child(2) > td {
-    padding-top: 10px;
+/* 검색결과 개수와 결과간의 간격 */
+section table#res_table tr:nth-child(2) > td {
+  padding-top: 10px;
 }
-section#search table#res_table tr:last-child > td {
-    padding-bottom: 10px;
+section table#res_table tr:last-child > td {
+  padding-bottom: 10px;
 }
 
 /* Landscape 모드일 때 적용할 CSS */
 @media (orientation: landscape) {
-    section#search ul.list-group li:first-child {  /* 검색창 */
-        width: 35vw;
-    }
-    section#search table#res_table tr > td:first-child {  /* 회사명 */
-        max-width: 12em;
-    }
+  section#search ul.list-group li:first-child {  /* 검색창 */
+      width: 35vw;
+  }
+  section#search table#res_table tr > td:first-child {  /* 회사명 */
+      max-width: 12em;
+  }
 }
 
 /* 뷰포트 너비가 851px 이상 '그리고' 991px 이하이면 실행 */
 @media all and (min-width:851px) and (max-width:991px) {
-    section#search ul.list-group li:first-child {  /* 검색창 */
-        width: 60vw;
-    }
+  section#search ul.list-group li:first-child {  /* 검색창 */
+      width: 60vw;
+  }
 }
-
-/* 로딩중 모달 */
-
-.center{
-    text-align: center;
-}
-
-@keyframes ldio-ctva47ff9l8 {
-  0% { transform: rotate(0deg) }
-  100% { transform: rotate(360deg) }
-}
-.ldio-ctva47ff9l8 > div > div {
-  transform-origin: 100px 100px;
-  animation: ldio-ctva47ff9l8 3.571428571428571s linear infinite;
-  opacity: 0.8
-}
-.ldio-ctva47ff9l8 > div > div > div {
-  position: absolute;
-  left: 30px;
-  top: 30px;
-  width: 70px;
-  height: 70px;
-  border-radius: 70px 0 0 0;
-  transform-origin: 100px 100px
-}.ldio-ctva47ff9l8 > div div:nth-child(1) {
-  animation-duration: 0.8928571428571428s
-}
-.ldio-ctva47ff9l8 > div div:nth-child(1) > div {
-  background: #333f50;
-  transform: rotate(0deg);
-}.ldio-ctva47ff9l8 > div div:nth-child(2) {
-  animation-duration: 1.1904761904761905s
-}
-.ldio-ctva47ff9l8 > div div:nth-child(2) > div {
-  background: #ffc107;
-  transform: rotate(0deg);
-}.ldio-ctva47ff9l8 > div div:nth-child(3) {
-  animation-duration: 1.7857142857142856s
-}
-.ldio-ctva47ff9l8 > div div:nth-child(3) > div {
-  background: #0d2c3f;
-  transform: rotate(0deg);
-}.ldio-ctva47ff9l8 > div div:nth-child(4) {
-  animation-duration: 3.571428571428571s
-}
-.ldio-ctva47ff9l8 > div div:nth-child(4) > div {
-  background: #e0e6ea;
-  transform: rotate(0deg);
-}
-.loadingio-spinner-wedges-qmmbs7ig4cr {
-  width: 200px;
-  height: 200px;
-  display: inline-block;
-  overflow: hidden;
-  background: #ffffff;
-}
-.ldio-ctva47ff9l8 {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform: translateZ(0) scale(1);
-  backface-visibility: hidden;
-  transform-origin: 0 0; /* see note above */
-}
-.ldio-ctva47ff9l8 div { box-sizing: content-box; }
