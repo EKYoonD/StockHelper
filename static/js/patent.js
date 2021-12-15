@@ -1,5 +1,5 @@
 // 검색 결과 반환
-function search_keyword_company(kw, stock_code) {
+function search_keyword_company(kw) {
     // patent 페이지에 키워드 보유 기업 리스트 보여줌
     var res = $("#res_table");   // res 결과가 들어갈 html element
     res.load("../static/data/Keyword_Company.csv", function (data) {
@@ -23,7 +23,7 @@ function search_keyword_company(kw, stock_code) {
         res.html(table);   // res 결과를 html에 보여줌
 
         // 검색 개수
-        res.prepend('<tr class="border-bottom" id="res_cnt"><td class="pl-3 py-1" colspan="3">검색결과: <strong class="text-warning">' + res_cnt + '</strong>건</td></tr>')
+        res.prepend('<tr class="border-bottom" id="res_cnt"><td class="pl-3 py-1" colspan="3">검색결과: <strong>' + res_cnt + '</strong>건</td></tr>')
         
         // table의 선택 버튼 눌러서 분석 페이지로 이동
         $("button[name='analysisKeyword_btn']").on("click", function () {
@@ -35,7 +35,7 @@ function search_keyword_company(kw, stock_code) {
 }
 
 $(document).ready(function() {
-    // 클릭한 키워드
+    // 클릭한 키워드 가져오기
     keyword = $('#patent > h6 > span').html()
     
     // 클릭한 키워드에 대한 주식정보

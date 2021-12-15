@@ -19,7 +19,7 @@ function write_data(data) {
         
         for (i = cnt; i <= j; i++) {
             var element = lines[i].split(',');
-            list += '<li><a href="/StockWeb/patent?kw=' + element[1] + '">'
+            list += '<li><a href="/StockWeb/patent?rank=' + element[0] + '&kw=' + element[1] + '">'
                     + '<span class="rank text-warning mr-1">' + element[0] + '</span>'
                     + '<span class="kw mr-1">' + element[1] + '</span>'
                     + '<span class="cnt text-warning">' + element[2] + '</span>'

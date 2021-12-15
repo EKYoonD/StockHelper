@@ -1,3 +1,6 @@
 section article .jquery-accordion-menu a:hover {
     background-color: #282828 !important;
 }
+section article .jquery-accordion-menu.black a:hover {
+    background-color: #555 !important;
+}

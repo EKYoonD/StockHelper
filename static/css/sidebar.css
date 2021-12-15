@@ -22,7 +22,7 @@ aside .jquery-accordion-menu {
 aside .jquery-accordion-menu a {
     padding: 5px 22px !important;
 }
-aside .jquery-accordion-menu a:hover {
+aside .jquery-accordion-menu #patent_kw a:hover {
     background-color: #282828 !important;
 }
 aside .jquery-accordion-menu-footer {

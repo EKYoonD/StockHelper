@@ -36,7 +36,7 @@ function graphTop10(items) {
             datasets: [{
                 label: '빈도수',
                 backgroundColor: '#33333370',
-                borderColor: '#0D2C3F',
+                borderColor: '#555555',
                 data: items['num']
             }]
         },

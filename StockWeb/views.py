@@ -51,7 +51,8 @@ def search(request):
 
 def patent(request):
     kw = request.GET['kw']
-    return render(request, 'patent.html', {'kw':kw})
+    rank = request.GET['rank']
+    return render(request, 'patent.html', {'rank':rank, 'kw':kw})
 
 def patentTop50(request):
     return render(request, 'patentTop50.html')

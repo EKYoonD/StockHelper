@@ -17,7 +17,6 @@ section#search ul.list-group li:first-child>input:focus {
 /* 검색 입력 경고 */
 .chkIdErrorNum:hover {
     opacity: 0.5;
-    /* 80% 투명도 */
 }
 
 .chkIdErrorNum button:active {
@@ -66,21 +65,18 @@ section table#res_table tr:last-child>td {
 
 /* Landscape 모드일 때 적용할 CSS */
 @media (orientation: landscape) {
-    section#search ul.list-group li:first-child {
-        /* 검색창 */
+    section#search ul.list-group li:first-child { /* 검색창 */
         width: 35vw;
     }
 
-    section#search table#res_table tr>td:first-child {
-        /* 회사명 */
+    section#search table#res_table tr>td:first-child { /* 회사명 */
         max-width: 12em;
     }
 }
 
 /* 뷰포트 너비가 851px 이상 '그리고' 991px 이하이면 실행 */
 @media all and (min-width:851px) and (max-width:991px) {
-    section#search ul.list-group li:first-child {
-        /* 검색창 */
+    section#search ul.list-group li:first-child { /* 검색창 */
         width: 60vw;
     }
 }
