@@ -5,6 +5,8 @@ $(document).ready(function() {
         dataType : 'text',
         success: function(data) {
             items = parseData(data)
+            alert(items['kw'])
+            alert(items['num'])
             graphTop10(items);
         }
     });
@@ -17,8 +19,8 @@ function parseData(data) {
     var lines = data.split('\n');
     for (i = 1; i <= 10; i++) {
         var element = lines[i].split(',');
-        kw.push(element[1])
-        num.push(element[2])
+        kw.push(element[1]);
+        num.push(Number(element[2]));
     }
 
     return {'kw': kw, 'num': num};
@@ -32,12 +34,12 @@ function graphTop10(items) {
         // The type of chart we want to create 
         type: 'bar', // The data for our dataset 
         data: {
-            labels: [items['kw']],
+            labels: items['kw'],
             datasets: [{
                 label: '빈도수',
                 // backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(255, 206, 86, 0.5)', 'rgba(75, 192, 192, 0.5)', 'rgba(153, 102, 255, 0.5)', 'rgba(255, 159, 64, 0.5)'],
                 // borderColor: ['rgb(255, 99, 132,1.5)', 'rgba(54, 162, 235, 1.5)', 'rgba(255, 206, 86, 1.5)', 'rgba(75, 192, 192, 1.5)', 'rgba(153, 102, 255, 1.5)', 'rgba(255, 159, 64, 1.5)'],
-                data: [items['num']]
+                data: items['num']
             }]
         },
         // Configuration options go here 
