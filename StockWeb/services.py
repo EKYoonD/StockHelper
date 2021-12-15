@@ -141,10 +141,16 @@ class PredictStock:
     
         # 병렬 처리
         # 본문 크롤링, 정제, 감성점수 -> 결과물
-        # res1의 마지막이 None이 됨(에러)
+        
         print("url size", len(urls))
-        pool = Pool(self.num_cores)
+        # 기사 100개 이하인 경우 병렬처리 하지 않음
+        if len(urls) < 100:
+            return pd.DataFrame(self.work_func(urls))
+
+        pool = Pool(processes=self.num_cores)
         url_split = np.array_split(urls, self.num_cores)
+        # res1의 마지막이 None이 됨(에러)
+        #print("check: ", url_split.append(np.array([])))
         res1 = pool.map(self.work_func, url_split)
         print("before: ", len(res1))
         res2 = sum(filter(None, res1), []) 
