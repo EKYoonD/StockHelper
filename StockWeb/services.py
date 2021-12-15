@@ -149,12 +149,8 @@ class PredictStock:
 
         pool = Pool(processes=self.num_cores)
         url_split = np.array_split(urls, self.num_cores)
-        # res1의 마지막이 None이 됨(에러)
-        #print("check: ", url_split.append(np.array([])))
         res1 = pool.map(self.work_func, url_split)
-        print("before: ", len(res1))
         res2 = sum(filter(None, res1), []) 
-        print("after: ", len(res2))
         pool.close()
         pool.join()
 
@@ -163,7 +159,8 @@ class PredictStock:
     # 병렬처리 위한 함수
     def work_func(self, urls):
         news = []
-        cnt = 0
+        # cnt = 0
+
         for url in urls:
             raw = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
             dom = BeautifulSoup(raw.text, "html.parser")
@@ -172,7 +169,7 @@ class PredictStock:
                 title = dom.select_one('#articleTitle').text.strip()
                 date = dom.select_one('#main_content > div.article_header > div.article_info > div > span.t11').text.strip()[:10]
             except Exception:
-                return
+                continue
             
             # <script> <style> 제거 (전처리)
             for s in dom(['script', 'style', 'img']):
@@ -210,8 +207,9 @@ class PredictStock:
             }
 
             news.append(dic)
-            print('PID :', os.getpid(), '/ cnt : ', cnt)
-            cnt += 1
+            # print('PID :', os.getpid(), '/ cnt : ', cnt)
+            # cnt += 1
+
         return news
 
 
