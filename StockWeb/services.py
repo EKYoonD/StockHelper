@@ -219,7 +219,7 @@ class PredictStock:
 
     # --------------- 데이터셋 구축하기(kospi, 감성점수, 기본 정보 합치기) ------------------
     def make_dataset(self, df_news, kospi, stock_code, ds, de):
-        if df_news != None:
+        if not isinstance(df_news, type(None)):
             # 날짜별 감성점수 평균내기
             df_senti = df_news[['Date','Senti_Score']].groupby('Date').mean()
 
@@ -229,7 +229,7 @@ class PredictStock:
         
         # 정보 합치기
         stock_dataset = pd.merge(stock_df, kospi, on='Date', how='inner')
-        if df_news != None:
+        if not isinstance(df_news, type(None)):
             stock_dataset = pd.merge(stock_dataset, df_senti, on='Date', how='left')
         else:
             stock_dataset['Senti_Score'] = 0
