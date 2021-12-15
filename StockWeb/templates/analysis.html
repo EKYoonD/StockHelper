@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
     <link rel="stylesheet" href="{% static 'css/analysis.css' %}">
 </head>
-<body class="bg-light">
+<body class="bg-light" onload="chart('{{data_set}}')">
     <!-- 헤더 -->
     <header class="text-light">
         <h5 class="d-flex justify-content-center p-2">
@@ -110,6 +110,9 @@
                 </li>
             </ul>
         </article>
+
+        <!-- candle 차트 그리기 -->
+        <div id="container" style="height: 400px; min-width: 310px"></div>
     </section>
 
     <!-- 푸터 -->
@@ -133,7 +136,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <!-- HIGHCHARTS.js -->
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <!-- <script src="https://code.highcharts.com/stock/modules/data.js"></script> -->
     <!-- My JS -->
     <script src="{% static 'js/sidebar.js' %}"></script>
+    <script src="{% static 'js/chart.js' %}"></script>
 </body>
 </html>
