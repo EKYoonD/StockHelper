@@ -65,3 +65,68 @@ section#search table#res_table tr:last-child > td {
         width: 60vw;
     }
 }
+
+/* 로딩중 모달 */
+
+.center{
+    text-align: center;
+}
+
+@keyframes ldio-ctva47ff9l8 {
+  0% { transform: rotate(0deg) }
+  100% { transform: rotate(360deg) }
+}
+.ldio-ctva47ff9l8 > div > div {
+  transform-origin: 100px 100px;
+  animation: ldio-ctva47ff9l8 3.571428571428571s linear infinite;
+  opacity: 0.8
+}
+.ldio-ctva47ff9l8 > div > div > div {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  width: 70px;
+  height: 70px;
+  border-radius: 70px 0 0 0;
+  transform-origin: 100px 100px
+}.ldio-ctva47ff9l8 > div div:nth-child(1) {
+  animation-duration: 0.8928571428571428s
+}
+.ldio-ctva47ff9l8 > div div:nth-child(1) > div {
+  background: #333f50;
+  transform: rotate(0deg);
+}.ldio-ctva47ff9l8 > div div:nth-child(2) {
+  animation-duration: 1.1904761904761905s
+}
+.ldio-ctva47ff9l8 > div div:nth-child(2) > div {
+  background: #ffc107;
+  transform: rotate(0deg);
+}.ldio-ctva47ff9l8 > div div:nth-child(3) {
+  animation-duration: 1.7857142857142856s
+}
+.ldio-ctva47ff9l8 > div div:nth-child(3) > div {
+  background: #0d2c3f;
+  transform: rotate(0deg);
+}.ldio-ctva47ff9l8 > div div:nth-child(4) {
+  animation-duration: 3.571428571428571s
+}
+.ldio-ctva47ff9l8 > div div:nth-child(4) > div {
+  background: #e0e6ea;
+  transform: rotate(0deg);
+}
+.loadingio-spinner-wedges-qmmbs7ig4cr {
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  overflow: hidden;
+  background: #ffffff;
+}
+.ldio-ctva47ff9l8 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+.ldio-ctva47ff9l8 div { box-sizing: content-box; }
