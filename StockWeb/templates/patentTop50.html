@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미래 기술 시장 예측</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+    <!-- Bootstrap4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static '/assets/bootsnipp/css/AccordlianMenu.min.css'%}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- My CSS -->
+    <link rel="stylesheet" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/patentTop50.css' %}">
+</head>
+<body class="bg-light">
+    <!-- 헤더 -->
+    <header class="text-light">
+        <h5 class="d-flex justify-content-center p-2">
+            <a href="/StockWeb" class="font-weight-bold">미래 기술 시장 예측</a>
+        </h5>
+    </header>
+
+    <!-- 본문 -->
+    <section class="container d-flex flex-column justify-content-center align-items-center px-3">
+        <h4 class="font-weight-bold text-center mt-4 mb-5">특허기반 미래기술 Top10</h4>
+        <div class="row mb-5">
+            <div class="d-flex justify-content-center">
+                <article class="col-3" style="background-color: aliceblue;">
+                    <div class="jquery-accordion-menu">
+                        <ul id="patent_kw_top10">
+                            <li><a href="/StockWeb/patent">
+                                <span class="rank text-warning mr-1">1</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">2</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">3</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">4</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">5</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                        </ul>
+                    </div>
+                </article>
+                <article class="col">
+                    <canvas id="patentTop10Chart"></canvas>
+                </article>
+            </div>
+        </div>
+        <hr class="w-100 my-5">
+        <h4 class="font-weight-bold text-center mt-4 mb-5">특허기반 미래기술 Top20 ~ Top50</h4>
+        <div class="row mt-4 mb-5">
+            <div class="d-flex justify-content-center">
+                <article class="col-3">
+                    <div class="jquery-accordion-menu">
+                        <ul id="patent_kw_top20">
+                            <li><a href="/StockWeb/patent">
+                                <span class="rank text-warning mr-1">1</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">2</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">3</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">4</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">5</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                        </ul>
+                    </div>
+                </article>
+                <article class="col-3">
+                    <div class="jquery-accordion-menu">
+                        <ul id="patent_kw_top30">
+                            <li><a href="/StockWeb/patent">
+                                <span class="rank text-warning mr-1">1</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">2</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">3</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">4</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">5</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                        </ul>
+                    </div>
+                </article>
+                <article class="col-3">
+                    <div class="jquery-accordion-menu">
+                        <ul id="patent_kw_top40">
+                            <li><a href="/StockWeb/patent">
+                                <span class="rank text-warning mr-1">1</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">2</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">3</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">4</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">5</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                        </ul>
+                    </div>
+                </article>
+                <article class="col-3">
+                    <div class="jquery-accordion-menu">
+                        <ul id="patent_kw_top50">
+                            <li><a href="/StockWeb/patent">
+                                <span class="rank text-warning mr-1">1</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">2</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">3</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">4</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                            <li><a href="#">
+                                <span class="rank text-warning mr-1">5</span> 
+                                <span class="kw">데이터 없음</span>
+                                <span class="cnt text-warning">0000</span>
+                            </a></li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="d-flex justify-content-center">
+        <div class="container">
+            <ul class="row">
+                <li class="col-lg-3 col-md-12">
+                    <h5 class="font-weight-bold">미래 기술 시장 예측</h5>
+                </li>
+                <li class="col" style="font-size: small;">
+                    AI 활용 소프트웨어 개발 및 응용 파이썬 프로젝트<br>
+                    팀명 : 오너&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;윤은경(팀장), 김영은, 김진섭, 노수빈, 하병노<br>
+                    &#169; 2021 We're like the owners
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Bootstrap4 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <!-- My JS -->
+    <script src="{% static 'js/patentTop50.js' %}"></script>
+    <script src="{% static 'js/patentTop10Chart.js' %}"></script>
+</body>
+</html>
