@@ -15,7 +15,7 @@ function search_keyword_company(kw, stock_code) {
                 table += "<tr>";
                 table += "<td class='pl-3 ellipsis'>" + elements[2] + "</td>";
                 table += "<td class='text-center'>" + elements[3] + "</td>";
-                table += '<td class="pr-3 text-right"><button type="button" name="analysisKeyword_btn" class="btn btn-outline-secondary btn-sm" value="' + elements  + '">선택</button></td>';
+                table += '<td class="pr-3 text-right"><button type="button" name="analysisKeyword_btn" class="btn btn-outline-secondary btn-sm" value="' + elements  + '" data-toggle="modal" data-target="#myModal">선택</button></td>';
                 table += "</tr>";
                 res_cnt += 1;
             }
