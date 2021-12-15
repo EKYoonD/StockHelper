@@ -5,8 +5,6 @@ $(document).ready(function() {
         dataType : 'text',
         success: function(data) {
             items = parseData(data)
-            alert(items['kw'])
-            alert(items['num'])
             graphTop10(items);
         }
     });
@@ -37,37 +35,38 @@ function graphTop10(items) {
             labels: items['kw'],
             datasets: [{
                 label: '빈도수',
-                // backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(255, 206, 86, 0.5)', 'rgba(75, 192, 192, 0.5)', 'rgba(153, 102, 255, 0.5)', 'rgba(255, 159, 64, 0.5)'],
-                // borderColor: ['rgb(255, 99, 132,1.5)', 'rgba(54, 162, 235, 1.5)', 'rgba(255, 206, 86, 1.5)', 'rgba(75, 192, 192, 1.5)', 'rgba(153, 102, 255, 1.5)', 'rgba(255, 159, 64, 1.5)'],
+                backgroundColor: '#33333370',
+                borderColor: '#0D2C3F',
                 data: items['num']
             }]
         },
         // Configuration options go here 
         options: {
-            title: {
-                display: true,
-                text: 'Top10 기술별 언급 빈도수',
-                fontSize: 18,
-                fontColor: 'rgba(46, 49, 49, 1)'
-            },
+            // title: {
+            //     display: true,
+            //     text: '- Top10 기술별 언급 빈도수 -',
+            //     fontSize: 15,
+            //     fontColor: 'gray'
+            // },
             legend: {
                 labels: {
-                    fontColor: 'rgba(83, 51, 237, 1)',
-                    fontSize: 15
+                    fontColor: 'black',
+                    fontSize: 16,
                 }
             },
             scales: {
                 xAxes: [{
                     ticks: {
-                        fontColor: 'rgba(27, 163, 156, 1)',
-                        fontSize: '15'
+                        fontColor: 'black',
+                        fontSize: '15',
+                        fontStyle: 'bold'
                     }
                 }],
                 yAxes: [{
                     ticks: {
                         beginAtZero: true,
-                        fontColor: 'rgba(246, 36, 89, 1)',
-                        fontSize: '15'
+                        fontColor: 'black',
+                        fontSize: '15',
                     }
                 }]
             }

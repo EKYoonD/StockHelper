@@ -9,7 +9,7 @@
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
     <!-- Bootstrap4 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static '/assets/bootsnipp/css/AccordlianMenu.min.css'%}">
+    <link rel="stylesheet" href="{% static '/assets/bootsnipp/css/AccordianMenu.css'%}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- My CSS -->
     <link rel="stylesheet" href="{% static 'css/common.css' %}">
@@ -27,12 +27,14 @@
     </header>
 
     <!-- 본문 -->
-    <section class="container d-flex flex-column justify-content-center align-items-center px-3">
-        <h4 class="font-weight-bold text-center mt-4 mb-5">특허기반 미래기술 Top10</h4>
+    <section class="container py-4">
+        <h4 class="font-weight-bold mt-4 mb-5">
+            특허기반 미래기술 Top10
+        </h4>
         <div class="row mb-5">
             <div class="d-flex justify-content-center">
-                <article class="col-3" style="background-color: aliceblue;">
-                    <div class="jquery-accordion-menu">
+                <article class="col-3">
+                    <div class="jquery-accordion-menu black">
                         <ul id="patent_kw_top10">
                             <li><a href="/StockWeb/patent">
                                 <span class="rank text-warning mr-1">1</span> 
@@ -62,13 +64,15 @@
                         </ul>
                     </div>
                 </article>
-                <article class="col">
+                <article class="col border rounded p-5 ml-4">
                     <canvas id="patentTop10Chart"></canvas>
                 </article>
             </div>
         </div>
-        <hr class="w-100 my-5">
-        <h4 class="font-weight-bold text-center mt-4 mb-5">특허기반 미래기술 Top20 ~ Top50</h4>
+        <hr class="w-100" style="margin: 6em 0;">
+        <h4 class="font-weight-bold mt-4 mb-5">
+            특허기반 미래기술 Top20 ~ Top50
+        </h4>
         <div class="row mt-4 mb-5">
             <div class="d-flex justify-content-center">
                 <article class="col-3">

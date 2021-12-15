@@ -17,7 +17,6 @@ function write_data(data) {
         var res = $('#patent_kw_top' + j);   // res 결과가 들어갈 자리
         var list = '';
         
-        // alert(j + " " + cnt + " " + typeof(j))
         for (i = cnt; i <= j; i++) {
             var element = lines[i].split(',');
             list += '<li><a href="/StockWeb/patent?kw=' + element[1] + '">'
@@ -29,5 +28,4 @@ function write_data(data) {
         cnt += 10
         res.html(list);   // res 결과를 html에 보여줌
     }
-
 }
