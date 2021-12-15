@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
     <link rel="stylesheet" href="{% static 'css/analysis.css' %}">
 </head>
-<body class="bg-light" onload="chart('{{data_set}}')">
+<body class="bg-light" onload="chart('{{data_set}}', '{{stock_name}}')">
     <!-- 헤더 -->
     <header class="text-light">
         <h5 class="d-flex justify-content-center p-2">
@@ -83,7 +83,9 @@
                 <li class="header mt-3">
                     <h6 class="title font-weight-bold py-2">30일 간의 종가 그래프</h6>
                     <p>
-                        네이버 뉴스에서 <span class="text-danger font-weight-bold">{{ name }}</span>에 대한 자료 중 <span class="text-danger font-weight-bold">1999-01-01</span>부터 <span class="text-danger font-weight-bold">1999-01-01</span>까지의 <span class="text-danger font-weight-bold">20건</span>을 분석한 결과입니다. 오늘 또는 내일의 종가는 참고용으로만 사용하십시오.
+                        네이버 뉴스에서 <span class="text-danger font-weight-bold">{{ name }}</span>에 대한 자료 중 <span class="text-danger font-weight-bold">{{ds}}</span>부터 <span class="text-danger font-weight-bold">{{de}}</span>까지의 <span class="text-danger font-weight-bold">{{news_cnt}}건</span>을 분석한 결과입니다.<br/>
+                        {{next_day}} 의 예상 종가는 {{pred}}원 입니다.<br/>
+                        오늘 또는 내일의 종가는 참고용으로만 사용하십시오.
                     </p>
                 </li>
                 <li id="closing_price_graph" class="mt-5">

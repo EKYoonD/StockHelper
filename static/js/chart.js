@@ -2,7 +2,7 @@
 // //     chart(data)
 // // })
 
-function chart(data_set) {
+function chart(data_set, stock_name) {
     data_set = data_set.split(',')
     var data = []
     var buffer = []
@@ -24,17 +24,11 @@ function chart(data_set) {
         },
 
         title: {
-            text: '지난 20일치 주식 그래프'
+            text: '2020-01-01 이후 ' + stock_name + ' 주식 그래프'
         },
 
         rangeSelector: {
-            buttons: [
-                {type: 'hour',count: 1,text: '1h'}, 
-                {type: 'day',count: 1,text: '1d'}, 
-                {type: 'all',count: 1,text: 'All'}
-            ],
-            selected: 2,
-            inputEnabled: true
+            selected: 1
         },
 
         plotOptions: {
@@ -46,7 +40,7 @@ function chart(data_set) {
 
         series: [{
             type: 'candlestick',
-            name: '지난 20일치 주식 그래프',
+            name: stock_name,
             data: data,
             tooltip: {
             valueDecimals: 8

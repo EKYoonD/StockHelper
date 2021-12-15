@@ -17,8 +17,9 @@ def search(request):
     stock_name = request.GET['name']
     print(stock_code, stock_name)
     
-    result, data_set = predictStock.predict_stock(stock_name, stock_code)
-    data_set = data_set[['Open', 'High', 'Low', 'Close']].reset_index()
+    data_set, stock_start = predictStock.two_years(stock_code)
+    result, ds, de, news_cnt = predictStock.predict_stock(stock_name, stock_code)
+    # data_set = data_set[['Open', 'High', 'Low', 'Close']].reset_index()
     data_set['Date'] = data_set['Date'].apply(lambda date: int(time.mktime(date.timetuple())) * 1000)
     print(data_set)
     data_set_list = data_set.values.tolist()
@@ -28,12 +29,22 @@ def search(request):
     # data_set['Date'] = data_set['Date'].apply(lambda date : date.microsecond)
     print(result)
 
+    next_day = result.index[-1]
+    pred = int(result.iloc[-1])
+
     print("성공")
 
     data = {
         'name' : stock_name,
         'close_data_set' : result,
-        'data_set' : data_set_str
+        'data_set' : data_set_str,
+        'ds' : ds,
+        'de' : de,
+        'news_cnt' : news_cnt,
+        'stock_name' : stock_name,
+        'next_day' : next_day.replace('-', '.'),
+        'pred' : pred,
+        'stock_start' : stock_start
     }
 
     return render(request, 'analysis.html', data)

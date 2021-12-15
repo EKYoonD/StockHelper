@@ -145,11 +145,11 @@ class PredictStock:
         print("url size", len(urls))
         # 기사가 없는 경우 None 반환
         if len(urls) == 0:
-            return None
+            return None, 0
 
         # 기사 100개 이하인 경우 병렬처리 하지 않음
         if len(urls) < 100:
-            return pd.DataFrame(self.work_func(urls))
+            return pd.DataFrame(self.work_func(urls)), len(urls)
 
         pool = Pool(processes=self.num_cores)
         url_split = np.array_split(urls, self.num_cores)
@@ -158,7 +158,7 @@ class PredictStock:
         pool.close()
         pool.join()
 
-        return pd.DataFrame(res2)
+        return pd.DataFrame(res2), len(urls)
         
     # 병렬처리 위한 함수
     def work_func(self, urls):
@@ -259,6 +259,13 @@ class PredictStock:
         return self.stockList[self.stockList['회사명'] == stock_name]['종목코드'].iloc[0] == stock_code
 
 
+    # -------------- 2년치 종목 데이터 가져오기 ---------------------
+    def two_years(self, stock_code):
+        # 종목 정보 가져오기
+        stock_df = fdr.DataReader(stock_code, '2020-01-01')  # 무조건 2020-01-01일부터 가져오기
+
+        return stock_df[['Open', 'High', 'Low', 'Close']].reset_index(), stock_df.iloc[0].index
+
 
     # ----------------- ★ 주식 종가 반환해주기 (메인 함수!!!) ★ -------------------
     def predict_stock(self, stock_name, stock_code):
@@ -288,7 +295,7 @@ class PredictStock:
             stock_name = self.ko_en_dict[stock_name]
 
         # 검색 키워드로 네이버 기사 크롤링
-        df_news = self.crawling_article(stock_name, ds, de)
+        df_news, news_cnt = self.crawling_article(stock_name, ds, de)
         print(df_news) # ★ 확인용
         
         # 기사 데이터셋 구축하기 (KOSPI(init에서 가져오기), 감성점수, 기본 데이터 합치기)
@@ -311,4 +318,4 @@ class PredictStock:
         result.loc[str(next_day)] = scaler_close.inverse_transform(pred)[0][0]
 
         print("time :", time.time() - start)  # 현재시각 - 시작시간 = 실행 시간 # ★ 확인용
-        return result, data_set
+        return result, ds, de, news_cnt
