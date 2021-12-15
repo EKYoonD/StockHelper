@@ -67,7 +67,10 @@ class PredictStock:
 
     # --------------- 감성점수 계산하기 ------------------------
     def sentiment_scoring(self, news_content):        
-        client = language_v1.LanguageServiceClient.from_service_account_json("C:/DevRoot/stockhelper_data/flowing-bazaar-334005-93614458e39e.json")
+        try: 
+            client = language_v1.LanguageServiceClient.from_service_account_json("C:/DevRoot/dataset/flowing-bazaar-334005-93614458e39e.json")
+        except:
+            client = language_v1.LanguageServiceClient.from_service_account_json("D:/DevRoot/dataset/flowing-bazaar-334005-93614458e39e.json")
         document = language_v1.Document(
             content=news_content, type_=language_v1.Document.Type.PLAIN_TEXT
         )
