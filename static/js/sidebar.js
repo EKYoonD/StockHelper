@@ -7,7 +7,7 @@ $(document).ready(function() {
         
         for (i = 1; i <= 10; i++) {
             var element = lines[i].split(',');
-            list += '<li><a href="/StockWeb/patent">'
+            list += '<li><a href="/StockWeb/patent?kw=' + element[1] + '">'
                         + '<span class="rank text-warning mr-1">' + element[0] + '</span>'
                         + '<span class="kw mr-1">' + element[1] + '</span>'
                         + '<span class="cnt text-warning">' + element[2] + '</span>'
@@ -15,9 +15,9 @@ $(document).ready(function() {
         }
         res.html(list);   // res 결과를 html에 보여줌
         
-        // + 아이콘 클릭시 페이지 이동 
-        $('#more_btn').click(function(){
-            location.href = '/StockWeb/patentKeyword';
-        });
+    });
+    // + 아이콘 클릭시 페이지 이동 
+    $('#more_btn').click(function(){
+        location.href = '/StockWeb/patentKeyword';
     });
 });
