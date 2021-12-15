@@ -42,5 +42,5 @@ def patent(request):
     kw = request.GET['kw']
     return render(request, 'patent.html', {'kw':kw})
 
-def patentKeyword(request):
-    return render(request, 'patentKeyword.html')
+def patentTop50(request):
+    return render(request, 'patentTop50.html')

@@ -18,6 +18,6 @@ $(document).ready(function() {
     });
     // + 아이콘 클릭시 페이지 이동 
     $('#more_btn').click(function(){
-        location.href = '/StockWeb/patentKeyword';
+        location.href = '/StockWeb/patentTop50';
     });
 });

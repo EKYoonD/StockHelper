@@ -15,7 +15,6 @@ function write_data(data) {
     
     for (j of [10, 20, 30, 40, 50]) {
         var res = $('#patent_kw_top' + j);   // res 결과가 들어갈 자리
-        
         var list = '';
         
         // alert(j + " " + cnt + " " + typeof(j))
