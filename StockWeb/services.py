@@ -143,6 +143,10 @@ class PredictStock:
         # 본문 크롤링, 정제, 감성점수 -> 결과물
         
         print("url size", len(urls))
+        # 기사가 없는 경우 None 반환
+        if len(urls) == 0:
+            return None
+
         # 기사 100개 이하인 경우 병렬처리 하지 않음
         if len(urls) < 100:
             return pd.DataFrame(self.work_func(urls))
@@ -215,8 +219,9 @@ class PredictStock:
 
     # --------------- 데이터셋 구축하기(kospi, 감성점수, 기본 정보 합치기) ------------------
     def make_dataset(self, df_news, kospi, stock_code, ds, de):
-        # 날짜별 감성점수 평균내기
-        df_senti = df_news[['Date','Senti_Score']].groupby('Date').mean()
+        if df_news != None:
+            # 날짜별 감성점수 평균내기
+            df_senti = df_news[['Date','Senti_Score']].groupby('Date').mean()
 
         # 종목 정보 가져오기
         stock_df = fdr.DataReader(stock_code, ds, de)
@@ -224,7 +229,10 @@ class PredictStock:
         
         # 정보 합치기
         stock_dataset = pd.merge(stock_df, kospi, on='Date', how='inner')
-        stock_dataset = pd.merge(stock_dataset, df_senti, on='Date', how='left')
+        if df_news != None:
+            stock_dataset = pd.merge(stock_dataset, df_senti, on='Date', how='left')
+        else:
+            stock_dataset['Senti_Score'] = 0
         stock_dataset = stock_dataset.fillna(0) # 감성점수가 없는 날은 0으로 세팅
 
         return stock_dataset
