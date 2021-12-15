@@ -31,6 +31,7 @@ def search(request):
     print("성공")
 
     data = {
+        'name' : stock_name,
         'close_data_set' : result,
         'data_set' : data_set_str
     }
