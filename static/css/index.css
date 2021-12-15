@@ -89,6 +89,9 @@ section table#res_table tr:last-child>td {
 .center {
     text-align: center;
 }
+.text-blue{
+    color: #0d2c3f;
+}
 
 @keyframes ldio-ctva47ff9l8 {
     0% {
