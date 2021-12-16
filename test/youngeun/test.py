@@ -1,8 +1,9 @@
-from datetime import datetime
+import FinanceDataReader as fdr
 
-today = datetime.now()
+ # 종목 정보 가져오기
+stock_df = fdr.DataReader('199290')
+data_set = stock_df[['Open', 'High', 'Low', 'Close']].reset_index()
 
-# print(today.time() < datetime.strptime('15:30:00', '%H:%M:%S'))
-# print(today.hour)
+data_set.loc[data_set['Open'] == 0, 'Close'] = 0
 
-print(today.hour < 15 or (today.hour == 15 and today.minute <= 30))
+print(data_set.tail(20))

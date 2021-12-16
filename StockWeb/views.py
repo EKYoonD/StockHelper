@@ -20,21 +20,6 @@ def search(request):
     stock_name = request.GET['name']
     print(stock_code, stock_name)
 
-    # ---------------- 해당 주식 기존 정보들 가져오기 ----------------------------
-    # 다트에서 재무제표 가져오기
-    sales_revenue, profit, income, xls_url = stockInfo.get_stock_info(stock_code)
-
-    # 해당 주식 종목의 차트 정보
-    data_set, stock_start = stockInfo.all_stock_data(stock_code)
-    # 날짜 timestamp 형식으로 변경
-    data_set['Date'] = data_set['Date'].apply(lambda date: int(time.mktime(date.timetuple())) * 1000)
-    print(data_set)
-    # 데이터 펼치기
-    data_set_list = data_set.values.tolist()
-    print(data_set_list)
-    data_set_list = [','.join(map(lambda n: str(n), data_list)) for data_list in data_set_list]
-    data_set_str = ','.join(data_set_list)
-
     # ---------------- 해당 주식 종목의 20일치 종가 + 예측값 ------------------------
     result, ds, de, news_cnt = predictStock.predict_stock(stock_name, stock_code)
     result.index = map(lambda date: str(date)[:10], result.index)
@@ -50,11 +35,31 @@ def search(request):
     next_day = result.index[-1]
     pred = int(result.iloc[-1])
 
+    # ---------------- 해당 주식 기존 정보들 가져오기 ----------------------------
+    # 다트에서 주식종목 정보 가져오기
+    stock_dict = stockInfo.get_stock_info(stock_code)
+
+    # 다트에서 재무제표 가져오기
+    sales_revenue, profit, income, xls_url = stockInfo.get_financial_statements(stock_code)
+
+    # 해당 주식 종목의 차트 정보
+    data_set_str, stock_start = stockInfo.all_stock_data(stock_code)  # stock_start : 종목 상장일
+
     print("성공")
     print(sales_revenue, profit, income, xls_url)
 
     data = {
-        'name' : stock_name,
+        'stock_name' : stock_name,
+        'corp_name' : stock_dict['corp_name'],
+        'stock_code' : stock_code,
+        'owner_name' : stock_dict['ceo_nm'],
+        'company_area' : stock_dict['adres'],
+        'type_business' : stock_dict['type_business'],
+        'main_products' : stock_dict['main_products'],
+        'stock_start_day' : stock_start,
+        'stock_settlement_date' : stock_dict['acc_mt'],
+        'hompage_url' : stock_dict['hm_url'],
+
         'sales_revenue' : sales_revenue,
         'profit' : profit,
         'income' : income,

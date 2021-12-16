@@ -145,7 +145,7 @@ class PredictStock:
         # 병렬 처리
         # 본문 크롤링, 정제, 감성점수 -> 결과물
         
-        print("url size", len(urls))
+        print("url size", len(urls)) # ★ 확인용
         # 기사가 없는 경우 None 반환
         if len(urls) == 0:
             return None, 0
@@ -214,7 +214,7 @@ class PredictStock:
             }
 
             news.append(dic)
-            # print('PID :', os.getpid(), '/ cnt : ', cnt)
+            # print('PID :', os.getpid(), '/ cnt : ', cnt) # ★ 확인용
             # cnt += 1
 
         return news
@@ -249,7 +249,7 @@ class PredictStock:
         data_set_scaled = scaler.fit_transform(data_set[scale_cols])
         data_set_scaled = pd.DataFrame(data_set_scaled)
         data_set_scaled.columns = scale_cols
-        print(data_set_scaled)
+        print(data_set_scaled) # ★ 확인용
 
         # 종가 정규화하는 scaler 만들기
         scaler_close = MinMaxScaler()  # close만 정규화  ->  나중에 다시 되돌릴 때 필요
@@ -272,10 +272,10 @@ class PredictStock:
         
         # 주식 종목 이름과 코드가 매칭이 되는지 체크
         if self.check(stock_name, stock_code) == False:
-            print(stock_name, stock_code, "코드와 동일하지 않음")
+            print(stock_name, stock_code, "코드와 동일하지 않음") # ★ 확인용
             return None   # 동일하지 않으면 None 이 반환 -> 나중에 views.py 에서 체크해서 alert 설정해주기
         
-        print(stock_name, stock_code)
+        print(stock_name, stock_code) # ★ 확인용
 
         # 코스피, 시작날짜, 끝날짜 받아오기
         kospi, ds_datetime, de_datetime = self.kospi, self.ds_datetime, self.de_datetime
@@ -317,23 +317,39 @@ class PredictStock:
 
 class StockInfo:
     def __init__(self):
+        # Dart api 사용
         api_key = '7e4400d321b22388767c3eded0823102081c97d9'
 
         self.dart = OpenDartReader(api_key)
 
-    # -------------- 전체 종목 데이터 가져오기 ---------------------
+        # 주식 업종, 주요제품 정보
+        self.stockList = pd.read_csv('static/data/stockList_CSV.csv', dtype='str')
+
+    # -------------- 전체 종목 차트 정보 가져오기 ---------------------
     def all_stock_data(self, stock_code):
         # 종목 정보 가져오기
         stock_df = fdr.DataReader(stock_code)
+        data_set = stock_df[['Open', 'High', 'Low', 'Close']].reset_index()
 
-        return stock_df[['Open', 'High', 'Low', 'Close']].reset_index(), stock_df.iloc[0].index
+        data_set.loc[data_set['Open'] == 0, 'Close'] = 0
+        
+        # 날짜 timestamp 형식으로 변경
+        data_set['Date'] = data_set['Date'].apply(lambda date: int(time.mktime(date.timetuple())) * 1000)
+        # print(data_set) # ★ 확인용v
+        # 데이터 펼치기
+        data_set_list = data_set.values.tolist()
+        # print(data_set_list) # ★ 확인용
+        data_set_list = [','.join(map(lambda n: str(n), data_list)) for data_list in data_set_list]
+        data_set_str = ','.join(data_set_list)
+
+        return data_set_str, stock_df.index[0].strftime('%Y-%m-%d')
 
     # -------------- DART에서 종목 재무제표 가져오기 -----------------
-    def get_stock_info(self, stock_code):
+    def get_financial_statements(self, stock_code):
         try:
             rcp_no = self.dart.finstate(stock_code, 2020).loc[0, 'rcept_no']
         except:
-            return None
+            return "정보 없음", "정보 없음", "정보 없음", "정보 없음"
 
         # 해당 주식 2020년 사업보고서
         attaches = self.dart.attach_file_list(rcp_no)
@@ -346,7 +362,10 @@ class StockInfo:
         try:
             df = pd.read_excel(file_name, sheet_name='연결 손익계산서', skiprows=6)
         except:
-            df = pd.read_excel(file_name, sheet_name='연결 포괄손익계산서', skiprows=6)
+            try: 
+                df = pd.read_excel(file_name, sheet_name='연결 포괄손익계산서', skiprows=6)
+            except:
+                return "확인 불가", "확인 불가", "확인 불가", xls_url  # 정보가 없는건 아닌데 기존 틀에서 너무 벗어남  -> 어떻게 표현해줄까?
         os.remove(file_name) # 엑셀 삭제하기
 
         sales_revenue = df.iloc[0].values[1] # 매출액
@@ -355,3 +374,11 @@ class StockInfo:
 
         return sales_revenue, profit, income, xls_url  # 매출액(또는 영업수익), 영업이익(손실), 당기순이익(손실), 재무제표 다운링크
 
+    # ------------- DART에서 종목 정보 가져오기 -------------------
+    def get_stock_info(self, stock_code) :
+        stock_dict = self.dart.company(stock_code)
+
+        stock_dict['type_business'] = ', '.join(self.stockList[self.stockList['종목코드'] == stock_code]['업종'].values)
+        stock_dict['main_products'] = ', '.join(self.stockList[self.stockList['종목코드'] == stock_code]['주요제품'].values)
+
+        return stock_dict
