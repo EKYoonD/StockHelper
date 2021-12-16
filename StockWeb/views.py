@@ -1,7 +1,9 @@
+import re
 from django.shortcuts import render
 from .services import PredictStock
 from datetime import datetime
 import time
+import pandas as pd
 
 predictStock = PredictStock()
 
@@ -33,7 +35,12 @@ def search(request):
     result.index = map(lambda date: str(date)[:10], result.index)
     for i in range(21):
         result.iloc[i] = int(result[i])
-    print(result)
+    
+    print('해당 주식 종목의 20일치 종가 + 예측값')    
+    stock_close_date_list = list(result.index)  # 날짜
+    stock_close_price_list = list(result.values) # 종가
+    print(stock_close_date_list)
+    print(stock_close_price_list)
 
     next_day = result.index[-1]
     pred = int(result.iloc[-1])
@@ -43,6 +50,8 @@ def search(request):
     data = {
         'name' : stock_name,
         'close_data_set' : result,
+        'stock_close_date_list' : stock_close_date_list,
+        'stock_close_price_list' : stock_close_price_list,
         'data_set' : data_set_str,
         'ds' : ds,
         'de' : de,
