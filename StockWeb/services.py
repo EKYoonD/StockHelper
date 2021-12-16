@@ -374,19 +374,20 @@ class StockInfo:
 
         self.dart.retrieve(xls_url, file_name) # 엑셀 다운로드 받기
         try:
-            df = pd.read_excel(file_name, sheet_name='연결 손익계산서', skiprows=6)
+            df = pd.read_excel(file_name, sheet_name='연결 손익계산서')
         except:
             try: 
-                df = pd.read_excel(file_name, sheet_name='연결 포괄손익계산서', skiprows=6)
+                df = pd.read_excel(file_name, sheet_name='연결 포괄손익계산서')
             except:
                 return "확인 불가", "확인 불가", "확인 불가", xls_url  # 정보가 없는건 아닌데 기존 틀에서 너무 벗어남  -> 어떻게 표현해줄까?
         os.remove(file_name) # 엑셀 삭제하기
 
-        sales_revenue = df.iloc[0].values[1] # 매출액
-        profit = df.iloc[4].values[1] # 영업이익
-        income = df[df[' '].isin(['당기순이익', '당기순이익(손실)'])].iloc[0].values[1] # 당기순이익
+        unit = df.iloc[4].values[0] # 돈 단위
+        sales_revenue = df.iloc[6].values[1] # 매출액
+        profit = df.iloc[10].values[1] # 영업이익
+        income = df[df['Unnamed: 0'].isin(['당기순이익', '당기순이익(손실)'])].iloc[0].values[1] # 당기순이익
 
-        return sales_revenue, profit, income, xls_url  # 매출액(또는 영업수익), 영업이익(손실), 당기순이익(손실), 재무제표 다운링크
+        return unit, sales_revenue, profit, income, xls_url  # 돈 단위, 매출액(또는 영업수익), 영업이익(손실), 당기순이익(손실), 재무제표 다운링크
 
     # ------------- DART에서 종목 정보 가져오기 -------------------
     def get_stock_info(self, stock_code) :

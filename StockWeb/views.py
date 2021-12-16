@@ -28,7 +28,7 @@ def search(request):
     stock_dict = stockInfo.get_stock_info(stock_code)
 
     # 다트에서 재무제표 가져오기
-    sales_revenue, profit, income, xls_url = stockInfo.get_financial_statements(stock_code)
+    unit, sales_revenue, profit, income, xls_url = stockInfo.get_financial_statements(stock_code)
 
     # 해당 주식 종목의 차트 정보
     data_set_str, stock_start = stockInfo.all_stock_data(stock_code)  # stock_start : 종목 상장일
@@ -48,6 +48,7 @@ def search(request):
         'stock_settlement_date' : stock_dict['acc_mt'],
         'hompage_url' : stock_dict['hm_url'],
 
+        'unit' : unit,
         'sales_revenue' : sales_revenue,
         'profit' : profit,
         'income' : income,
