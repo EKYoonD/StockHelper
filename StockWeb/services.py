@@ -30,7 +30,10 @@ class PredictStock:
         kospi.rename(columns={'Change' : 'KOSPI'}, inplace=True)
 
         # 최근 날짜부터 20일치만 가져오기
-        kospi = kospi.tail(20)
+        if today.hour < 15 or (today.hour == 15 and today.minute <= 30):
+            kospi = kospi.iloc[-21:-1]
+        else:
+            kospi = kospi.tail(20)
 
         self.kospi, self.ds_datetime, self.de_datetime = kospi, kospi.index[0].date(), kospi.index[-1].date()
         self.stockList = pd.read_csv('static/data/stockList_CSV.csv', dtype='str')
@@ -260,7 +263,7 @@ class PredictStock:
 
 
     # -------------- 2년치 종목 데이터 가져오기 ---------------------
-    def two_years(self, stock_code):
+    def all_stock_data(self, stock_code):
         # 종목 정보 가져오기
         stock_df = fdr.DataReader(stock_code, '2020-01-01')  # 무조건 2020-01-01일부터 가져오기
 

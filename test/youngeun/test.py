@@ -1,5 +1,8 @@
-import pandas as pd
+from datetime import datetime
 
-stockList = pd.read_csv('static/data/stockList_CSV.csv', dtype='str')
+today = datetime.now()
 
-print(stockList[stockList['회사명'] == 'S-Oil']['종목코드'].iloc[0] == '010950')
+# print(today.time() < datetime.strptime('15:30:00', '%H:%M:%S'))
+# print(today.hour)
+
+print(today.hour < 15 or (today.hour == 15 and today.minute <= 30))

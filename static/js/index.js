@@ -27,7 +27,7 @@ function search_table() {
         for (i = 1; i < lines.length; i++) {
             var line = lines[i];
             var elements = line.split(",");
-            if (String(elements[1]).toLowerCase().includes($('#search_input').val().toLowerCase())) {
+            if (String(elements[1]).toLowerCase().includes($('#search_input').val().toLowerCase()) || String(elements[2]).includes($('#search_input').val())) {
                 table += "<tr>";
                 table += "<td class='pl-3 ellipsis'>" + elements[1] + "</td>";
                 table += "<td class='text-center'>" + elements[2] + "</td>";
