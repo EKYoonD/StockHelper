@@ -132,8 +132,10 @@ $(document).ready(function(){
     // 종가 상하강 여부에 따른 글자색 변화
     var upDown = $('#up_down').val();
     if (upDown == '상승') {
-        $('.stock_upDown').css({"color": "#d9534f", "font-weight": "bold"})
+        $('.stock_upDown').css({"color": "#d9534f", "font-weight": "bold"}) // 빨강(danger)
+    } else if (upDown == '하강') {
+        $('.stock_upDown').css({"color": "#0275d8", "font-weight": "bold"}) // 파랑(primary)
     } else {
-        $('.stock_upDown').css({"color": "#0275d8", "font-weight": "bold"})
+        $('.stock_upDown').css({"color": "#5cb85c", "font-weight": "bold"}) // 초록(success)
     }
 });

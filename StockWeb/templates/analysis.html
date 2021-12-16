@@ -170,12 +170,12 @@
                         <span class="stock_upDown font-weight-bold">{{next_day}}</span>의 예상 종가는
                         <span class="stock_upDown font-weight-bold">{{pred}}</span>원 입니다.
                         (전월대비 <span class="stock_upDown font-weight-bold">{{stock_price_diff}}원 <span id="up_down">{{up_down}}</span></span>)<br>
-                        <small>*오늘 또는 내일의 종가는 참고용으로만 사용하십시오.</small>
                     </p>
                 </li>
                 <li class="chart mt-5">
                     <!--종가 그래프가 그려질 부분-->
                     <canvas id="closeChart" class="w-100 h-100"></canvas>
+                    <div class="text-danger text-right"><small>*오늘 또는 내일의 종가는 참고용으로만 사용하십시오.</small></div>
                 </li>
             </ul>
         </article>
