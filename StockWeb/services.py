@@ -294,7 +294,7 @@ class PredictStock:
         print(df_news) # ★ 확인용
         
         # 기사 데이터셋 구축하기 (KOSPI(init에서 가져오기), 감성점수, 기본 데이터 합치기)
-        data_set = self.make_dataset(df_news, kospi, stock_code, ds, de)
+        data_set = self.make_dataset(df_news, kospi, stock_code, ds,  de)
         print(data_set) # ★ 확인용
         
         # 스케일링
@@ -310,11 +310,13 @@ class PredictStock:
         next_day = de_datetime + timedelta(days=1)
         if datetime.strptime(str(next_day), '%Y-%m-%d').weekday() == 5 or datetime.strptime(str(next_day), '%Y-%m-%d').weekday() == 6:
             next_day + next_day + timedelta(days=(7 - datetime.strptime(str(next_day), '%Y-%m-%d').weekday()))
-        result.loc[str(next_day)] = scaler_close.inverse_transform(pred)[0][0]
+        result.loc[str(next_day)] = scaler_close.inverse_transform(pred)[0][0] # 예측 종가 추가
 
+        # 다음 날짜, 예측 종가 
         next_day = result.index[-1]
         pred = int(result.iloc[-1])
 
+        # 차트 그릴 데이터 만들기
         result.index = map(lambda date: str(date)[:10], result.index)
         for i in range(21):
             result.iloc[i] = str(int(result[i]))
@@ -322,11 +324,33 @@ class PredictStock:
         print('해당 주식 종목의 20일치 종가 + 예측값')    
         stock_close_date_list = ','.join(list(result.index))  # 날짜
         stock_close_price_list = ','.join(list(result.values)) # 종가
-        print(stock_close_date_list)
-        print(stock_close_price_list)
+
+        # 전날 대비 종가 변화
+        stock_price_diff = pred - int(result.iloc[-2])
+        if stock_price_diff < 0:
+            stock_price_diff *= -1
+            up_down = '하강'
+        elif stock_price_diff > 0:
+            up_down = '상승'
+        else:
+            up_down = '변화 없음'
 
         print("time :", time.time() - start)  # 현재시각 - 시작시간 = 실행 시간 # ★ 확인용
-        return stock_close_date_list, stock_close_price_list, ds, de, news_cnt, next_day, pred
+
+        # 딕셔너리로 넘겨주기
+        pred_stock_dict = {
+            "stock_close_date_list": stock_close_date_list,
+            "stock_close_price_list": stock_close_price_list,
+            "ds": ds, 
+            "de": de, 
+            "news_cnt": news_cnt, 
+            "next_day": next_day, 
+            "pred": pred, 
+            "stock_price_diff": stock_price_diff,
+            "up_down": up_down
+        }
+
+        return pred_stock_dict
 
 class StockInfo:
     def __init__(self):

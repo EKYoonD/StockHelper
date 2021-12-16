@@ -141,10 +141,10 @@
                     <h6 class="title font-weight-bold py-2">30일 간의 종가 그래프</h6>
                     <p>
                         네이버 뉴스에서 <span class="text-danger font-weight-bold">{{ stock_name }}</span>에 대한 자료 중 <span
-                            class="text-danger font-weight-bold">{{ds}}</span>부터 <span
-                            class="text-danger font-weight-bold">{{de}}</span>까지 <span
+                            class="text-danger font-weight-bold">{{start_date}}</span>부터 <span
+                            class="text-danger font-weight-bold">{{end_date}}</span>까지 <span
                             class="text-danger font-weight-bold">{{news_cnt}}건</span>의 기사가 분석에 사용되었습니다.<br />
-                        {{next_day}} 의 예상 종가는 {{pred}}원 입니다.<br />
+                        {{next_day}} 의 예상 종가는 {{pred}}원으로 전일대비 {{stock_price_diff}}원 {{up_down}}<br />
                         오늘 또는 내일의 종가는 참고용으로만 사용하십시오.
                     </p>
                 </li>
