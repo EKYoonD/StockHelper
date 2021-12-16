@@ -1,9 +1,12 @@
-import FinanceDataReader as fdr
+from datetime import datetime
+import time
 
- # 종목 정보 가져오기
-stock_df = fdr.DataReader('199290')
-data_set = stock_df[['Open', 'High', 'Low', 'Close']].reset_index()
+from pandas._libs.tslibs.timestamps import Timestamp
 
-data_set.loc[data_set['Open'] == 0, 'Close'] = 0
 
-print(data_set.tail(20))
+date = datetime.now()
+
+Timestamp_now = int(time.mktime(date.timetuple()))
+print(Timestamp_now)
+print(datetime.fromtimestamp(Timestamp_now))
+# datetime.date.fromtimestamp(1583644364)

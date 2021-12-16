@@ -332,10 +332,11 @@ class StockInfo:
         data_set = stock_df[['Open', 'High', 'Low', 'Close']].reset_index()
 
         data_set.loc[data_set['Open'] == 0, 'Close'] = 0
+        print(data_set)
         
         # 날짜 timestamp 형식으로 변경
         data_set['Date'] = data_set['Date'].apply(lambda date: int(time.mktime(date.timetuple())) * 1000)
-        # print(data_set) # ★ 확인용v
+        # print(data_set) # ★ 확인용
         # 데이터 펼치기
         data_set_list = data_set.values.tolist()
         # print(data_set_list) # ★ 확인용

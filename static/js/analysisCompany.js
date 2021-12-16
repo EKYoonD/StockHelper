@@ -11,9 +11,23 @@ function chart(data_set, stock_name) {
 
         buffer.push(Number(data_set[i]))
     }
+    if (buffer.length > 0) {
+        data.push(buffer)
+    }
+ 
+    Highcharts.setOptions({
+        time: {
+            getTimezoneOffset: function (timestamp) {
+                var zone = 'Asia/Seoul',
+                    timezoneOffset = -moment.tz(timestamp, zone).utcOffset();
+    
+                return timezoneOffset;
+            }
+        }
+    });
  
     // create the chart
-    chart = new Highcharts.stockChart('companyChart', {
+    Highcharts.stockChart('companyChart', {
 
         rangeSelector: {
             selected: 1
@@ -32,6 +46,10 @@ function chart(data_set, stock_name) {
                 downColor: 'blue',
                 upColor: 'red'
             }
+        },
+
+        global: {
+                    useUTC: false
         },
 
         series: [{
