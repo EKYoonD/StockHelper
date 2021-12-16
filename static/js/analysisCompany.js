@@ -11,7 +11,7 @@ function chart(data_set, stock_name) {
 
         buffer.push(Number(data_set[i]))
     }
-
+ 
     // create the chart
     chart = new Highcharts.stockChart('companyChart', {
 
