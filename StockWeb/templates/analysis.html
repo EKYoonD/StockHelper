@@ -28,7 +28,7 @@
     }
 </script> -->
 
-<body class="bg-light" onload="chart('{{data_set}}', '{{stock_name}}');">
+<body class="bg-light" onload="chart('{{data_set}}', '{{stock_name}}', '{{stock_close_date_list}}', '{{stock_close_price_list}}');">
     <!-- 헤더 -->
     <header class="text-light">
         <h5 class="d-flex justify-content-center p-2">
@@ -190,7 +190,7 @@
     <!-- My JS -->
     <script src="{% static 'js/sidebar.js' %}"></script>
     <script src="{% static 'js/analysisCompany.js' %}"></script>
-    <script src="{% static 'js/analysisClosePriceChart.js' %}"></script>
+    <!-- <script src="{% static 'js/analysisClosePriceChart.js' %}"></script> -->
 
 </body>
 

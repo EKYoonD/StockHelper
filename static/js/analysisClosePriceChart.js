@@ -10,6 +10,8 @@ function close_chart(stock_close_date_list, stock_close_price_list) {
                 //x 축 (리스트) 
                 stock_close_date_list
                 // [1,2,3,4,5,6]
+                // ['1','2','3','4','5','6']
+
                 ,
             datasets: [{ //데이터
                     label: '최근 20일간의 종가 + 예측 종가', //차트 제목

@@ -312,8 +312,21 @@ class PredictStock:
             next_day + next_day + timedelta(days=(7 - datetime.strptime(str(next_day), '%Y-%m-%d').weekday()))
         result.loc[str(next_day)] = scaler_close.inverse_transform(pred)[0][0]
 
+        next_day = result.index[-1]
+        pred = int(result.iloc[-1])
+
+        result.index = map(lambda date: str(date)[:10], result.index)
+        for i in range(21):
+            result.iloc[i] = str(int(result[i]))
+        
+        print('해당 주식 종목의 20일치 종가 + 예측값')    
+        stock_close_date_list = ','.join(list(result.index))  # 날짜
+        stock_close_price_list = ','.join(list(result.values)) # 종가
+        print(stock_close_date_list)
+        print(stock_close_price_list)
+
         print("time :", time.time() - start)  # 현재시각 - 시작시간 = 실행 시간 # ★ 확인용
-        return result, ds, de, news_cnt
+        return stock_close_date_list, stock_close_price_list, ds, de, news_cnt, next_day, pred
 
 class StockInfo:
     def __init__(self):

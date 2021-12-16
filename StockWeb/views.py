@@ -21,19 +21,7 @@ def search(request):
     print(stock_code, stock_name)
 
     # ---------------- 해당 주식 종목의 20일치 종가 + 예측값 ------------------------
-    result, ds, de, news_cnt = predictStock.predict_stock(stock_name, stock_code)
-    result.index = map(lambda date: str(date)[:10], result.index)
-    for i in range(21):
-        result.iloc[i] = int(result[i])
-    
-    print('해당 주식 종목의 20일치 종가 + 예측값')    
-    stock_close_date_list = list(result.index)  # 날짜
-    stock_close_price_list = list(result.values) # 종가
-    print(stock_close_date_list)
-    print(stock_close_price_list)
-
-    next_day = result.index[-1]
-    pred = int(result.iloc[-1])
+    stock_close_date_list, stock_close_price_list, ds, de, news_cnt, next_day, pred = predictStock.predict_stock(stock_name, stock_code)
 
     # ---------------- 해당 주식 기존 정보들 가져오기 ----------------------------
     # 다트에서 주식종목 정보 가져오기
@@ -65,7 +53,6 @@ def search(request):
         'income' : income,
         'xls_url' : xls_url,
 
-        'close_data_set' : result,
         'stock_close_date_list' : stock_close_date_list,
         'stock_close_price_list' : stock_close_price_list,
         'data_set' : data_set_str,
