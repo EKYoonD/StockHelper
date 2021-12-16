@@ -363,7 +363,7 @@ class StockInfo:
         try:
             rcp_no = self.dart.finstate(stock_code, 2020).loc[0, 'rcept_no']
         except:
-            return "정보 없음", "정보 없음", "정보 없음", "정보 없음"
+            return "", "정보 없음", "정보 없음", "정보 없음", "정보 없음"
 
         # 해당 주식 2020년 사업보고서
         attaches = self.dart.attach_file_list(rcp_no)
@@ -379,8 +379,9 @@ class StockInfo:
             try: 
                 df = pd.read_excel(file_name, sheet_name='연결 포괄손익계산서')
             except:
-                return "확인 불가", "확인 불가", "확인 불가", xls_url  # 정보가 없는건 아닌데 기존 틀에서 너무 벗어남  -> 어떻게 표현해줄까?
-        os.remove(file_name) # 엑셀 삭제하기
+                return "", "확인 불가", "확인 불가", "확인 불가", xls_url  # 정보가 없는건 아닌데 기존 틀에서 너무 벗어남  -> 어떻게 표현해줄까?
+        finally:
+            os.remove(file_name) # 엑셀 삭제하기
 
         unit = df.iloc[4].values[0] # 돈 단위
         sales_revenue = df.iloc[6].values[1] # 매출액
