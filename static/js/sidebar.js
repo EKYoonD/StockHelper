@@ -5,13 +5,8 @@ $(document).ready(function() {
     // aside 태그에 특허 키워드 보여줄 순위 산출
     var start = 1
     var end = 10
-    var referrer = document.referrer.split('/') // 이전 페이지 url
-    var targetPage = ''  // 확인하려는 이전 페이지
-    for (i = 3; i < referrer.length; i++) {  // url의 경로 이하로만 구성
-        targetPage += '/' + referrer[i]
-    }
 
-    if (targetPage == '/StockWeb/patentTop50') { // 이전페이지에 따라 start, end 값 변경
+    if (rank) {  // 파라미터에 값이 있으면 실행
         var tmp = Math.floor(rank / 10);  // 순위의 일의 자리가 1 ~ 9인 키워드를 눌렀을 때
         start = 10 * tmp + 1;
         end = 10 * (tmp + 1);
