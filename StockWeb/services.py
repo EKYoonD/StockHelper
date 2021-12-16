@@ -229,6 +229,7 @@ class PredictStock:
         # 종목 정보 가져오기
         stock_df = fdr.DataReader(stock_code, ds, de)
         stock_df.rename(columns={'Change':'EachStock'}, inplace=True)
+        stock_df.loc[(stock_df['Open'] == 0) & (stock_df['High'] == 0), 'Close'] = 0 # 시가, 최고가가 0인경우   
         
         # 정보 합치기
         stock_dataset = pd.merge(stock_df, kospi, on='Date', how='inner')
@@ -246,6 +247,7 @@ class PredictStock:
         scaler = MinMaxScaler()  # 전체를 정규화
         # Senti_Score   Open   High   Low   Close   Volume   EachStock   KOSPI
         scale_cols = ['Open', 'High', 'Low', 'Close', 'Volume', 'EachStock', 'KOSPI', 'Senti_Score']
+        
         data_set_scaled = scaler.fit_transform(data_set[scale_cols])
         data_set_scaled = pd.DataFrame(data_set_scaled)
         data_set_scaled.columns = scale_cols
@@ -368,7 +370,7 @@ class StockInfo:
         stock_df = fdr.DataReader(stock_code)
         data_set = stock_df[['Open', 'High', 'Low', 'Close']].reset_index()
 
-        data_set.loc[data_set['Open'] == 0, 'Close'] = 0
+        data_set.loc[(data_set['Open'] == 0) & (data_set['High'] == 0), 'Close'] = 0 # 시가, 최고가가 0인경우 
         print(data_set)
         
         # 날짜 timestamp 형식으로 변경
