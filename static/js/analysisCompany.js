@@ -20,7 +20,7 @@ function chart(data_set, stock_name) {
         },
 
         title: {
-            text: '2020-01-01 이후 ' + stock_name + ' 주식 그래프'
+            text: stock_name + ' 주식 그래프'
         },
 
         rangeSelector: {

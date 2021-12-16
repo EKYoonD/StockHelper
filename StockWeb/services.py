@@ -8,6 +8,7 @@ import os
 import time
 from datetime import datetime, timedelta
 import FinanceDataReader as fdr
+import OpenDartReader
 import tensorflow as tf 
 # from .__init__ import kospi
 from google.cloud import language_v1
@@ -15,7 +16,6 @@ from sklearn.preprocessing import MinMaxScaler
 from urllib import parse
 
 from multiprocessing import Pool
-
 
 class PredictStock:
     def __init__(self):
@@ -262,14 +262,6 @@ class PredictStock:
         return self.stockList[self.stockList['회사명'] == stock_name]['종목코드'].iloc[0] == stock_code
 
 
-    # -------------- 2년치 종목 데이터 가져오기 ---------------------
-    def all_stock_data(self, stock_code):
-        # 종목 정보 가져오기
-        stock_df = fdr.DataReader(stock_code, '2020-01-01')  # 무조건 2020-01-01일부터 가져오기
-
-        return stock_df[['Open', 'High', 'Low', 'Close']].reset_index(), stock_df.iloc[0].index
-
-
     # ----------------- ★ 주식 종가 반환해주기 (메인 함수!!!) ★ -------------------
     def predict_stock(self, stock_name, stock_code):
         
@@ -322,3 +314,44 @@ class PredictStock:
 
         print("time :", time.time() - start)  # 현재시각 - 시작시간 = 실행 시간 # ★ 확인용
         return result, ds, de, news_cnt
+
+class StockInfo:
+    def __init__(self):
+        api_key = '7e4400d321b22388767c3eded0823102081c97d9'
+
+        self.dart = OpenDartReader(api_key)
+
+    # -------------- 전체 종목 데이터 가져오기 ---------------------
+    def all_stock_data(self, stock_code):
+        # 종목 정보 가져오기
+        stock_df = fdr.DataReader(stock_code)
+
+        return stock_df[['Open', 'High', 'Low', 'Close']].reset_index(), stock_df.iloc[0].index
+
+    # -------------- DART에서 종목 재무제표 가져오기 -----------------
+    def get_stock_info(self, stock_code):
+        try:
+            rcp_no = self.dart.finstate(stock_code, 2020).loc[0, 'rcept_no']
+        except:
+            return None
+
+        # 해당 주식 2020년 사업보고서
+        attaches = self.dart.attach_file_list(rcp_no)
+        # 첨부 재무제표 엑셀
+        xls_url = attaches.loc[attaches['type']=='excel', 'url'].values[0]
+
+        file_name = f'{stock_code}_2020.xls'
+
+        self.dart.retrieve(xls_url, file_name) # 엑셀 다운로드 받기
+        try:
+            df = pd.read_excel(file_name, sheet_name='연결 손익계산서', skiprows=6)
+        except:
+            df = pd.read_excel(file_name, sheet_name='연결 포괄손익계산서', skiprows=6)
+        os.remove(file_name) # 엑셀 삭제하기
+
+        sales_revenue = df.iloc[0].values[1] # 매출액
+        profit = df.iloc[4].values[1] # 영업이익
+        income = df[df[' '].isin(['당기순이익', '당기순이익(손실)'])].iloc[0].values[1] # 당기순이익
+
+        return sales_revenue, profit, income, xls_url  # 매출액(또는 영업수익), 영업이익(손실), 당기순이익(손실), 재무제표 다운링크
+
