@@ -30,7 +30,7 @@ class PredictStock:
         kospi.rename(columns={'Change' : 'KOSPI'}, inplace=True)
 
         # 최근 날짜부터 20일치만 가져오기
-        if today.hour < 15 or (today.hour == 15 and today.minute <= 30):
+        if 9 <= today.hour < 15 or (today.hour == 15 and today.minute <= 30):
             kospi = kospi.iloc[-21:-1]
         else:
             kospi = kospi.tail(20)
