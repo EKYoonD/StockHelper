@@ -1,6 +1,12 @@
 section#analysis li.header > p {
     font-size: 15px;
 }
+section#analysis li.company_info table {
+    font-size: 15px;
+}
+section#analysis li.chart {
+    max-height: 28em;
+}
 section#analysis li.keyword > span {
     padding: 0 6px;
     font-size: small;

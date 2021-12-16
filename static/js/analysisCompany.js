@@ -127,3 +127,13 @@ function close_chart(stock_close_date_list, stock_close_price_list) {
         }
     });
 }
+
+$(document).ready(function(){
+    // 종가 상하강 여부에 따른 글자색 변화
+    var upDown = $('#up_down').val();
+    if (upDown == '상승') {
+        $('.stock_upDown').css({"color": "#d9534f", "font-weight": "bold"})
+    } else {
+        $('.stock_upDown').css({"color": "#0275d8", "font-weight": "bold"})
+    }
+});

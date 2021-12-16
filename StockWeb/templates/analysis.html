@@ -61,71 +61,89 @@
         <article class="mb-4">
             <ul class="container py-2 pb-5 px-md-5 px-sm-4 bg-white rounded">
                 <li class="header mt-3">
-                    <h6 class="title font-weight-bold py-2">기업정보</h6>
+                    <h6 class="title font-weight-bold py-2">
+                        <i class="fas fa-window-minimize fa-rotate-90"></i>
+                        기업정보
+                    </h6>
                 </li>
-                <li class="company_info">
+                <li class="company_info border rounded p-3">
                     <table class="w-100">
                         <tr class="row">
-                            <td class="col-6 col-md-2">기업명</td>
-                            <td class="col-6 col-md-4">{{corp_name}}</td>
-                            <td class="col-6 col-md-2">종목코드</td>
-                            <td class="col-6 col-md-4">{{stock_code}}</td>
+                            <td class="col-4 col-md-2 mb-2 font-weight-bold">기업명</td>
+                            <td class="col-8 col-md-4 mb-2">{{corp_name}}</td>
+                            <td class="col-4 col-md-2 mb-2 font-weight-bold">종목코드</td>
+                            <td class="col-8 col-md-4 mb-2">{{stock_code}}</td>
                         </tr>
                         <tr class="row">
-                            <td class="col-6 col-md-2">대표자명</td>
-                            <td class="col-6 col-md-4">{{owner_name}}</td>
-                            <td class="col-6 col-md-2">주소</td>
-                            <td class="col-6 col-md-4">{{company_area}}</td>
+                            <td class="col-4 col-md-2 mb-2 font-weight-bold">대표자명</td>
+                            <td class="col-8 col-md-4 mb-2">{{owner_name}}</td>
+                            <td class="col-4 col-md-2 mb-2 font-weight-bold">업종</td>
+                            <td class="col-8 col-md-4 mb-2">{{type_business}}</td>
                         </tr>
                         <tr class="row">
-                            <td class="col-6 col-md-2">업종</td>
-                            <td class="col-6 col-md-4">{{type_business}}</td>
-                            <td class="col-6 col-md-2">주요제품</td>
-                            <td class="col-6 col-md-4">{{main_products}}</td>
+                            <td class="col-4 col-md-2 mb-2 font-weight-bold">주요제품</td>
+                            <td class="col-8 col-md-10 mb-2">{{main_products}}</td>
                         </tr>
                         <tr class="row">
-                            <td class="col-6 col-md-2">상장일</td>
-                            <td class="col-6 col-md-4">{{stock_start_day}}</td>
-                            <td class="col-6 col-md-2">결산월</td>
-                            <td class="col-6 col-md-4">{{stock_settlement_date}}월</td>
+                            <td class="col-4 col-md-2 mb-2 font-weight-bold">상장일</td>
+                            <td class="col-8 col-md-4 mb-2">{{stock_start_day}}</td>
+                            <td class="col-4 col-md-2 mb-2 font-weight-bold">결산월</td>
+                            <td class="col-8 col-md-4 mb-2">{{stock_settlement_date}}월</td>
                         </tr>
                         <tr class="row">
-                            <td class="col-6 col-md-2">홈페이지</td>
-                            <td class="col-6 col-md-10"><a href='http://{{hompage_url}}' target="_blank">{{hompage_url}}</a></td>
-                        </tr>
-
-                        <!-- 재무제표 내용 마음대로 넗겠습니다. -영은- -->
-                        <tr class="row">
-                            <td class="col-6 col-md-2">매출액</td>
-                            <td class="col-6 col-md-10">{{sales_revenue}}{{unit}}</td>
+                            <td class="col-4 col-md-2 mb-2 font-weight-bold">주소</td>
+                            <td class="col-8 col-md-10 mb-2">{{company_area}}</td>
                         </tr>
                         <tr class="row">
-                            <td class="col-6 col-md-2">영업이익</td>
-                            <td class="col-6 col-md-10">{{profit}}{{unit}}</td>
-                        </tr>
-                        <tr class="row">
-                            <td class="col-6 col-md-2">당기순이익</td>
-                            <td class="col-6 col-md-10">{{income}}{{unit}}</td>
-                        </tr>
-                        <tr class="row">
-                            <td class="col-6 col-md-2">재무제표</td>
-                            <td class="col-6 col-md-10"><a href='{{xls_url}}' target="_blank">다운로드</a></td>
+                            <td class="col-4 col-md-2 font-weight-bold">홈페이지</td>
+                            <td class="col-8 col-md-10"><a href='http://{{hompage_url}}' target="_blank" style="color: blue; text-decoration:underline;">{{hompage_url}}</a></td>
                         </tr>
                     </table>
                 </li>
-                <li class="border rounded p-3 mt-5">
+                <li class="header mt-5">
+                    <h6 class="title font-weight-bold py-2">
+                        <i class="fas fa-window-minimize fa-rotate-90"></i>
+                        재무제표 요약
+                    </h6>
+                    <p>
+                        {{corp_name}}의 재무제표를
+                        <a class="btn btn-primary btn-sm font-weight-bold pt-0 m-0" href='{{xls_url}}' target="_blank" style="height: 21px; font-size: small;">다운로드</a>
+                        받고 싶다면 버튼을 눌러주세요.
+                    </p>
+                </li>
+                <li class="company_info">
+                    <div class="text-right text-danger"><small>{{unit}}</small></div>
+                </li>
+                <li class="company_info border rounded p-3">
+                    <table class="w-100">
+                        <tr class="row">
+                            <td class="col-4 col-md-2 mb-2 font-weight-bold">매출액</td>
+                            <td class="col-8 col-md-4">{{sales_revenue}}</td>
+                            <td class="col-4 col-md-2 mb-2 font-weight-bold">영업이익</td>
+                            <td class="col-8 col-md-4">{{profit}}</td>
+                        </tr>
+                        <tr class="row">
+                            <td class="col-4 col-md-2 font-weight-bold">당기순이익</td>
+                            <td class="col-8 col-md-10">{{income}}</td>
+                        </tr>
+                    </table>
+                </li>
+                <li class="chart mt-5">
                     <!-- candle 차트 그리기 -->
-                    <div id="companyChart" style="height: 400px; min-width: 310px"></div>
+                    <div id="companyChart" class="w-100 h-100"></div>
                 </li>
             </ul>
         </article>
         <!-- 언론사 -->
         <article>
-            <ul class="container py-2 pb-5 px-md-5 px-sm-4 bg-white rounded">
+            <ul class="container py-2 pb-4 px-md-5 px-sm-4 bg-white rounded">
                 <li class="header mt-3">
-                    <h6 class="title font-weight-bold py-2">분석에 사용된 언론사</h6>
+                    <h6 class="title font-weight-bold py-2">
+                        <i class="fas fa-window-minimize fa-rotate-90"></i>
+                        분석에 사용된 언론사
+                    </h6>
                 </li>
-                <li class="keyword">
+                <li class="keyword pb-2">
                     <span>경향신문</span>
                     <span>국민일보</span>
                     <span>동아일보</span>
@@ -138,21 +156,26 @@
         <article>
             <ul class="container py-2 pb-5 px-md-5 px-sm-4 bg-white rounded">
                 <li class="header mt-3">
-                    <h6 class="title font-weight-bold py-2">30일 간의 종가 그래프</h6>
+                    <h6 class="title font-weight-bold py-2">
+                        <i class="fas fa-window-minimize fa-rotate-90"></i>
+                        20일 간의 종가 그래프
+                    </h6>
                     <p>
-                        네이버 뉴스에서 <span class="text-danger font-weight-bold">{{ stock_name }}</span>에 대한 자료 중 <span
-                            class="text-danger font-weight-bold">{{start_date}}</span>부터 <span
-                            class="text-danger font-weight-bold">{{end_date}}</span>까지 <span
-                            class="text-danger font-weight-bold">{{news_cnt}}건</span>의 기사가 분석에 사용되었습니다.<br />
-                        {{next_day}} 의 예상 종가는 {{pred}}원으로 전일대비 {{stock_price_diff}}원 {{up_down}}<br />
-                        오늘 또는 내일의 종가는 참고용으로만 사용하십시오.
+                        네이버 뉴스에서 <span class="font-weight-bold">{{stock_name}}</span>에 대한 자료 중
+                        <span class="font-weight-bold">{{start_date}}</span>부터
+                        <span class="font-weight-bold">{{end_date}}</span>까지
+                        <span class="font-weight-bold">{{news_cnt}}건</span>의 기사가 분석에 사용되었습니다.
+                    </p>
+                    <p>
+                        <span class="stock_upDown font-weight-bold">{{next_day}}</span>의 예상 종가는
+                        <span class="stock_upDown font-weight-bold">{{pred}}</span>원 입니다.
+                        (전월대비 <span class="stock_upDown font-weight-bold">{{stock_price_diff}}원 <span id="up_down">{{up_down}}</span></span>)<br>
+                        <small>*오늘 또는 내일의 종가는 참고용으로만 사용하십시오.</small>
                     </p>
                 </li>
-                <li class="mt-3">
-                    <div style="max-height: 28em; overflow: hidden;">
-                        <!--종가 그래프가 그려질 부분-->
-                        <canvas id="closeChart" class="w-100"></canvas>
-                    </div>
+                <li class="chart mt-5">
+                    <!--종가 그래프가 그려질 부분-->
+                    <canvas id="closeChart" class="w-100 h-100"></canvas>
                 </li>
             </ul>
         </article>
@@ -191,7 +214,5 @@
     <script src="{% static 'js/sidebar.js' %}"></script>
     <script src="{% static 'js/analysisCompany.js' %}"></script>
     <!-- <script src="{% static 'js/analysisClosePriceChart.js' %}"></script> -->
-
 </body>
-
 </html>
