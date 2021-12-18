@@ -311,7 +311,7 @@ class PredictStock:
         result =  data_set['Close']
         next_day = de_datetime + timedelta(days=1)
         if datetime.strptime(str(next_day), '%Y-%m-%d').weekday() == 5 or datetime.strptime(str(next_day), '%Y-%m-%d').weekday() == 6:
-            next_day + next_day + timedelta(days=(7 - datetime.strptime(str(next_day), '%Y-%m-%d').weekday()))
+            next_day = next_day + timedelta(days=(7 - datetime.strptime(str(next_day), '%Y-%m-%d').weekday()))
         result.loc[str(next_day)] = scaler_close.inverse_transform(pred)[0][0] # 예측 종가 추가
 
         # 다음 날짜, 예측 종가 
