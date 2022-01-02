@@ -5,8 +5,7 @@ from datetime import datetime
 import time
 import pandas as pd
 
-predictStock = PredictStock()
-stockInfo = StockInfo()
+
 
 def find(request):
 
@@ -16,6 +15,10 @@ def find(request):
         return render(request, 'index.html')
 
 def search(request):
+
+    predictStock = PredictStock()
+    stockInfo = StockInfo()
+
     stock_code = request.GET['stock']
     stock_name = request.GET['name']
     print(stock_code, stock_name)

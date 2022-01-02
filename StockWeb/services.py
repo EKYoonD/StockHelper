@@ -28,12 +28,15 @@ class PredictStock:
         # KOSPI 정보 가져오기
         kospi = fdr.DataReader('KS11', ds, de)[['Change']] 
         kospi.rename(columns={'Change' : 'KOSPI'}, inplace=True)
-
+        #print(ds, de)
+        #print(kospi)
         # 최근 날짜부터 20일치만 가져오기
         if 9 <= today.hour < 15 or (today.hour == 15 and today.minute <= 30):
             kospi = kospi.iloc[-21:-1]
         else:
             kospi = kospi.tail(20)
+
+        #print(kospi)
 
         self.kospi, self.ds_datetime, self.de_datetime = kospi, kospi.index[0].date(), kospi.index[-1].date()
         self.stockList = pd.read_csv('static/data/stockList_CSV.csv', dtype='str')
@@ -137,15 +140,15 @@ class PredictStock:
                 for l in lists:
                     urls.append(l.select("div.news_wrap > div.news_area > div.news_info > div.info_group > a")[-1]['href'])
                 
-                print(code, '신문사', start, '번째 크롤링') # ★ 확인용
+                # print(code, '신문사', start, '번째 크롤링') # ★ 확인용
         
-        print('url 크롤링 완료') # ★ 확인용
+        # print('url 크롤링 완료') # ★ 확인용
 
     
         # 병렬 처리
         # 본문 크롤링, 정제, 감성점수 -> 결과물
         
-        print("url size", len(urls)) # ★ 확인용
+        # print("url size", len(urls)) # ★ 확인용
         # 기사가 없는 경우 None 반환
         if len(urls) == 0:
             return None, 0
@@ -251,7 +254,7 @@ class PredictStock:
         data_set_scaled = scaler.fit_transform(data_set[scale_cols])
         data_set_scaled = pd.DataFrame(data_set_scaled)
         data_set_scaled.columns = scale_cols
-        print(data_set_scaled) # ★ 확인용
+        # print(data_set_scaled) # ★ 확인용
 
         # 종가 정규화하는 scaler 만들기
         scaler_close = MinMaxScaler()  # close만 정규화  ->  나중에 다시 되돌릴 때 필요
@@ -274,10 +277,10 @@ class PredictStock:
         
         # 주식 종목 이름과 코드가 매칭이 되는지 체크
         if self.check(stock_name, stock_code) == False:
-            print(stock_name, stock_code, "코드와 동일하지 않음") # ★ 확인용
+            # print(stock_name, stock_code, "코드와 동일하지 않음") # ★ 확인용
             return None   # 동일하지 않으면 None 이 반환 -> 나중에 views.py 에서 체크해서 alert 설정해주기
         
-        print(stock_name, stock_code) # ★ 확인용
+        # print(stock_name, stock_code) # ★ 확인용
 
         # 코스피, 시작날짜, 끝날짜 받아오기
         kospi, ds_datetime, de_datetime = self.kospi, self.ds_datetime, self.de_datetime
@@ -285,7 +288,7 @@ class PredictStock:
         # 날짜 문자열로 변경
         ds = str(ds_datetime).replace('-','.')
         de = str(de_datetime).replace('-','.')
-        print('코스피 완료', ds, de) # ★ 확인용
+        # print('코스피 완료', ds, de) # ★ 확인용
 
         # 검색 키워드 받아오기
         if stock_name in self.ko_en_dict.keys():
@@ -293,11 +296,11 @@ class PredictStock:
 
         # 검색 키워드로 네이버 기사 크롤링
         df_news, news_cnt = self.crawling_article(stock_name, ds, de)
-        print(df_news) # ★ 확인용
+        # print(df_news) # ★ 확인용
         
         # 기사 데이터셋 구축하기 (KOSPI(init에서 가져오기), 감성점수, 기본 데이터 합치기)
         data_set = self.make_dataset(df_news, kospi, stock_code, ds,  de)
-        print(data_set) # ★ 확인용
+        # print(data_set) # ★ 확인용
         
         # 스케일링
         data_set_scaled, scaler_close = self.scaling(data_set)
@@ -323,7 +326,7 @@ class PredictStock:
         for i in range(21):
             result.iloc[i] = str(int(result[i]))
         
-        print('해당 주식 종목의 20일치 종가 + 예측값')    
+        # print('해당 주식 종목의 20일치 종가 + 예측값')    
         stock_close_date_list = ','.join(list(result.index))  # 날짜
         stock_close_price_list = ','.join(list(result.values)) # 종가
 
@@ -337,7 +340,7 @@ class PredictStock:
         else:
             up_down = '변화 없음'
 
-        print("time :", time.time() - start)  # 현재시각 - 시작시간 = 실행 시간 # ★ 확인용
+        # print("time :", time.time() - start)  # 현재시각 - 시작시간 = 실행 시간 # ★ 확인용
 
         # 딕셔너리로 넘겨주기
         pred_stock_dict = {
@@ -371,7 +374,7 @@ class StockInfo:
         data_set = stock_df[['Open', 'High', 'Low', 'Close']].reset_index()
 
         data_set.loc[(data_set['Open'] == 0) & (data_set['High'] == 0), 'Close'] = 0 # 시가, 최고가가 0인경우 
-        print(data_set)
+        # print(data_set)
         
         # 날짜 timestamp 형식으로 변경
         data_set['Date'] = data_set['Date'].apply(lambda date: int(time.mktime(date.timetuple())) * 1000)
