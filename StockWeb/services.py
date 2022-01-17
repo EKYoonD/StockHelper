@@ -21,7 +21,7 @@ class PredictStock:
     def __init__(self):
         # 오늘 날짜
         today = datetime.now()
-        startday = today - timedelta(days=30)
+        startday = today - timedelta(days=35)
         ds = str(startday.date())
         de = str(today.date())
 
@@ -300,7 +300,7 @@ class PredictStock:
         
         # 기사 데이터셋 구축하기 (KOSPI(init에서 가져오기), 감성점수, 기본 데이터 합치기)
         data_set = self.make_dataset(df_news, kospi, stock_code, ds,  de)
-        # print(data_set) # ★ 확인용
+        print(data_set) # ★ 확인용
         
         # 스케일링
         data_set_scaled, scaler_close = self.scaling(data_set)
